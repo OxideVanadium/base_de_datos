@@ -1,2 +1,2 @@
 # Tareas
-- [Tarea 1.](Tarea_1)
+- [Tarea_1.](Tarea_1)
