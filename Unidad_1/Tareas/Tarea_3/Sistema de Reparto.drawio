@@ -1,0 +1,79 @@
+<mxfile host="app.diagrams.net" modified="2023-09-28T18:00:58.601Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="Zoz6pSPUKvn-HBI1bF9u" version="21.8.2" type="github">
+  <diagram name="Página-1" id="DXjCByTwYUVbcFyYAlgy">
+    <mxGraphModel dx="805" dy="994" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="KojkXZgFHkotCEIG1of--7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="KojkXZgFHkotCEIG1of--1" target="KojkXZgFHkotCEIG1of--4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--1" value="Paquete" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="364" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="KojkXZgFHkotCEIG1of--2" target="KojkXZgFHkotCEIG1of--5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--2" value="&lt;div&gt;Camionero&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="364" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--3" value="Camion" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="364" y="735" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="KojkXZgFHkotCEIG1of--4" target="KojkXZgFHkotCEIG1of--2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--4" value="lleva" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="384" y="370" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="KojkXZgFHkotCEIG1of--5" target="KojkXZgFHkotCEIG1of--3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--5" value="conduce" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="384" y="600" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--11" value="Codigo de paquete" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="374" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--13" value="Descripcion" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="155" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--14" value="Destinatario" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="111" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--15" value="Direccion" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="67" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--16" value="DNI" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="520" y="413.5" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--18" value="Nombre" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="457.5" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--19" value="Telefono" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="500.5" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--20" value="Salario" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="543.5" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--21" value="&lt;div&gt;Poblacion&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="586.5" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--22" value="Matricula" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="374" y="803" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--23" value="Modelo" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="847" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--24" value="Tipo" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="890" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--25" value="Potencia" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="374" y="934" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="KojkXZgFHkotCEIG1of--26" value="Fecha" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="620" width="100" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
