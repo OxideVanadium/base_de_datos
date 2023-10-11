@@ -1,9 +1,30 @@
-<mxfile host="app.diagrams.net" modified="2023-10-11T14:40:46.044Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" version="22.0.4" etag="UnstXKyYfl6ZecsnbPfe" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-11T15:11:25.133Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="CQHuW1uGZhbQyM8tzgY0" version="22.0.4" type="github">
   <diagram name="Página-1" id="zssnSc5Du6BaKN0DJh9I">
-    <mxGraphModel>
+    <mxGraphModel dx="1024" dy="1334" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="Udmkfbot07eqab1O8y2G-1" value="Participante" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="270" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Udmkfbot07eqab1O8y2G-2" value="Jugador" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="360" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Udmkfbot07eqab1O8y2G-3" value="Arbitro" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="500" y="360" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Udmkfbot07eqab1O8y2G-4" value="Pais" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="150" y="270" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Udmkfbot07eqab1O8y2G-5" value="Partida" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="650" y="270" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Udmkfbot07eqab1O8y2G-6" value="Hotel" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="120" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Udmkfbot07eqab1O8y2G-7" value="Sala" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="650" y="120" width="100" height="40" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
