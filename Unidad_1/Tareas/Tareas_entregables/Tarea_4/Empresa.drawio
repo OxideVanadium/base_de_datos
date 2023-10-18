@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-10-18T18:09:22.126Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="xSr9xwTurv1W_O_DCDkJ" version="22.0.4" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-18T18:10:48.433Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="ZpbRwRTQtuelV2oVKhRX" version="22.0.4" type="github">
   <diagram name="Página-1" id="3rt9o08_EEZjVEnaxzIQ">
-    <mxGraphModel dx="2113" dy="2047" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="2315" dy="2308" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -307,6 +307,18 @@
         </mxCell>
         <mxCell id="zfdqlGUJjaQnBxxot2W5-76" value="demanda" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
           <mxGeometry x="-167" y="720" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zfdqlGUJjaQnBxxot2W5-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.898;entryY=0.393;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="zfdqlGUJjaQnBxxot2W5-79" target="zfdqlGUJjaQnBxxot2W5-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zfdqlGUJjaQnBxxot2W5-79" value="fecha" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="620" y="625" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zfdqlGUJjaQnBxxot2W5-80" value="cantidad" style="ellipse;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="620" y="655" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="zfdqlGUJjaQnBxxot2W5-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.908;entryY=0.588;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="zfdqlGUJjaQnBxxot2W5-80" target="zfdqlGUJjaQnBxxot2W5-25">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
