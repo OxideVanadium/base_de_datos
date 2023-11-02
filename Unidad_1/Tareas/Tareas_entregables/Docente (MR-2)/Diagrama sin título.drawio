@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-11-02T20:09:11.489Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="tSJ3M60AI2_vgMz_wP6d" version="22.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-02T20:12:06.636Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="zosAfcKzOjyHuZO8AFc9" version="22.0.8" type="github">
   <diagram name="Página-1" id="kEACgTnDqEzxiUY1QNMb">
-    <mxGraphModel dx="1000" dy="1227" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1188" dy="1458" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1406,13 +1406,13 @@
         <mxCell id="IuDeVaHeTrSTkV0p-soC-499" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.996;entryY=0.105;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.006;exitY=0.248;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="IuDeVaHeTrSTkV0p-soC-406" target="IuDeVaHeTrSTkV0p-soC-388">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1805" y="517" />
+              <mxPoint x="1805" y="627" />
               <mxPoint x="1805" y="793" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-402" value="Curso" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1610" y="450" width="180" height="150" as="geometry" />
+          <mxGeometry x="1605" y="560" width="180" height="150" as="geometry" />
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-403" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" vertex="1" parent="IuDeVaHeTrSTkV0p-soC-402">
           <mxGeometry y="30" width="180" height="30" as="geometry" />
@@ -1467,7 +1467,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-428" value="Asignatura" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1325" y="1170" width="180" height="150" as="geometry" />
+          <mxGeometry x="1390" y="1170" width="180" height="150" as="geometry" />
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-429" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" vertex="1" parent="IuDeVaHeTrSTkV0p-soC-428">
           <mxGeometry y="30" width="180" height="30" as="geometry" />
@@ -1524,9 +1524,8 @@
         <mxCell id="IuDeVaHeTrSTkV0p-soC-501" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.999;exitY=0.26;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="IuDeVaHeTrSTkV0p-soC-519" target="IuDeVaHeTrSTkV0p-soC-403">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2120" y="1268" />
-              <mxPoint x="2210" y="1268" />
-              <mxPoint x="2210" y="495" />
+              <mxPoint x="2190" y="1268" />
+              <mxPoint x="2190" y="605" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -1612,7 +1611,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-454" value="Imparte" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="1605" y="1170" width="180" height="150" as="geometry" />
+          <mxGeometry x="1640" y="1170" width="180" height="150" as="geometry" />
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-455" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=0;html=1;" vertex="1" parent="IuDeVaHeTrSTkV0p-soC-454">
           <mxGeometry y="30" width="180" height="30" as="geometry" />
@@ -1780,7 +1779,12 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-494" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.003;entryY=0.147;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="IuDeVaHeTrSTkV0p-soC-458" target="IuDeVaHeTrSTkV0p-soC-442">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1860" y="1245" />
+              <mxPoint x="1860" y="1204" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-495" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IuDeVaHeTrSTkV0p-soC-481" target="IuDeVaHeTrSTkV0p-soC-388">
           <mxGeometry relative="1" as="geometry" />
@@ -1802,8 +1806,8 @@
         <mxCell id="IuDeVaHeTrSTkV0p-soC-500" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IuDeVaHeTrSTkV0p-soC-432" target="IuDeVaHeTrSTkV0p-soC-403">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1280" y="1245" />
-              <mxPoint x="1280" y="495" />
+              <mxPoint x="1340" y="1245" />
+              <mxPoint x="1340" y="605" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -1811,8 +1815,8 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1910" y="740" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="2170" y="1245" />
-              <mxPoint x="2170" y="740" />
+              <mxPoint x="2160" y="1245" />
+              <mxPoint x="2160" y="740" />
               <mxPoint x="1840" y="740" />
               <mxPoint x="1840" y="805" />
             </Array>
@@ -1900,7 +1904,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="IuDeVaHeTrSTkV0p-soC-537" value="Aula" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;" vertex="1" parent="1">
+        <mxCell id="IuDeVaHeTrSTkV0p-soC-537" value="Aula" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
           <mxGeometry x="2220" y="1320" width="180" height="150" as="geometry" />
         </mxCell>
         <mxCell id="IuDeVaHeTrSTkV0p-soC-538" value="" style="shape=tableRow;horizontal=0;startSize=0;swimlaneHead=0;swimlaneBody=0;fillColor=none;collapsible=0;dropTarget=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;top=0;left=0;right=0;bottom=1;" vertex="1" parent="IuDeVaHeTrSTkV0p-soC-537">
