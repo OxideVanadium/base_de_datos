@@ -1,9 +1,30 @@
-<mxfile host="app.diagrams.net" modified="2023-11-21T15:54:57.402Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" version="22.1.3" etag="Oywdi1pozj1aGwySohqP" type="github">
+<mxfile host="app.diagrams.net" modified="2023-11-21T15:56:13.085Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/114.0" etag="FjPwqpjnEcbvC0JLrKA4" version="22.1.3" type="github">
   <diagram name="Página-1" id="jNLxdsUWTl__oSSE9t-m">
-    <mxGraphModel>
+    <mxGraphModel dx="529" dy="694" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="gkyN_itiqJF-A4490EDc-1" value="Alumno" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="440" y="230" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gkyN_itiqJF-A4490EDc-2" value="Seccion" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="640" y="230" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gkyN_itiqJF-A4490EDc-3" value="&lt;div&gt;Asignatura&lt;/div&gt;" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="420" y="374" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gkyN_itiqJF-A4490EDc-4" value="Curso" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="610" y="384" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gkyN_itiqJF-A4490EDc-5" value="Oficina" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="310" y="480" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gkyN_itiqJF-A4490EDc-6" value="Letra" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="485" y="490" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="gkyN_itiqJF-A4490EDc-7" value="Docente" style="whiteSpace=wrap;html=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="510" y="560" width="100" height="40" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
