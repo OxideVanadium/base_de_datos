@@ -28,6 +28,7 @@ create table vehiculos(
 	foreign key (id_prop) references propietario(id)
 );
 ```
+<img src="capturas/1.png" width=350/>
 
 ## Paso 2
 
