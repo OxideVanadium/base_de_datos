@@ -111,19 +111,95 @@ select current_time from empleados limit 1;
 * Funciones de Conversión (CAST): Convierte el salario a un valor de punto flotante.
 
 ```sql
-select cast(salario as decimal) 
+select cast(salario as decimal) as salario from empleados;
 ```
+<img src="capturas/14.png" width=450/>
 
 * Funciones de Manipulación de Cadenas (SUBSTR): Muestra los primeros tres caracteres de cada nombre de empleado.
 
+```sql
+select substr(nombre, 0, 4) as nombre from empleados;
+```
+<img src="capturas/15.png" width=450/>
+
 * Order By and Like. 
-    * Empleados en el departamento de 'Ventas' con salarios superiores a 52000.
-    * Empleados cuyos nombres contienen la letra 'a' y tienen salarios ordenados de manera ascendente.
-    * Empleados en el departamento 'Recursos Humanos' con salarios entre 45000 y 55000.
-    * Empleados con salarios en orden descendente, limitando a los primeros 5 resultados.
-    * Empleados cuyos nombres comienzan con 'M' o 'N' y tienen salarios superiores a 50000.
-    * Empleados en el departamento 'TI' o 'Ventas' ordenados alfabéticamente por nombre.
-    * Empleados con salarios únicos (eliminando duplicados) en orden ascendente.
-    * Empleados cuyos nombres terminan con 'o' o 'a' y están en el departamento 'Ventas'.
-    * Empleados con salarios fuera del rango de 55000 a 70000, ordenados por departamento.
-    * Empleados en el departamento 'Recursos Humanos' con nombres que no contienen la letra 'e'.
+* Empleados en el departamento de 'Ventas' con salarios superiores a 52000.
+
+```sql
+select * from empleados where departamento='Ventas' and salario>52000;
+```
+<img src="capturas/16.png" width=450/>
+
+* Empleados cuyos nombres contienen la letra 'a' y tienen salarios ordenados de manera ascendente.
+
+```sql
+select * from empleados 
+where nombre like '%a%'
+order by(salario);
+```
+<img src="capturas/17.png" width=450/>
+
+* Empleados en el departamento 'Recursos Humanos' con salarios entre 45000 y 55000.
+
+```sql
+select * from empleados
+where departamento='Recursos Humanos' and
+salario between 45000 and 55000;
+```
+<img src="capturas/18.png" width=450/>
+
+* Empleados con salarios en orden descendente, limitando a los primeros 5 resultados.
+
+```sql
+select * from empleados 
+order by salario desc limit 5;
+```
+<img src="capturas/19.png" width=450/>
+
+* Empleados cuyos nombres comienzan con 'M' o 'N' y tienen salarios superiores a 50000.
+
+```sql
+select * from empleados
+where nombre like 'M%' and
+salario>50000;
+```
+<img src="capturas/20.png" width=450/>
+
+* Empleados en el departamento 'TI' o 'Ventas' ordenados alfabéticamente por nombre.
+
+```sql
+select * from empleados 
+where departamento='TI' or departamento='Ventas'
+order by nombre;
+```
+<img src="capturas/21.png" width=450/>
+
+* Empleados con salarios únicos (eliminando duplicados) en orden ascendente.
+
+```sql
+
+```
+
+* Empleados cuyos nombres terminan con 'o' o 'a' y están en el departamento 'Ventas'.
+
+```sql
+
+```
+
+
+* Empleados con salarios fuera del rango de 55000 a 70000, ordenados por departamento.
+
+```sql
+select * from empleados
+where salario not in(55000, 70000);
+```
+<img src="capturas/24.png" width=450/>
+
+* Empleados en el departamento 'Recursos Humanos' con nombres que no contienen la letra 'e'.
+
+```sql
+select * from empleados
+where nombre not like '%e%' 
+and departamento='Recursos Humanos';
+```
+<img src="capturas/25.png" width=450/>
