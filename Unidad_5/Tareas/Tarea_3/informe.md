@@ -15,7 +15,7 @@ Crea con el siguente contenido el fichero empleados-dump.sql.
 .read empleados_dump.sql
 .table
 ```
-<img src="Tarea_3/capturas/1.png" width=450/>
+<img src="capturas/1.png" width=450/>
 
 ### Paso 3: Realización de consultas
 
@@ -26,41 +26,41 @@ Realiza las siguientes consultas, y muestra el resultado obtenido:
 ```sql
 select upper(nombre) as nombre from empleados;
 ```
-<img src="Tarea_3/capturas/2.png" width=450/>
+<img src="capturas/2.png" width=450/>
 
 * Funciones Numéricas: Calcula el valor absoluto del salario de todos los empleados.
 
 ```sql
 select abs(salario) as valor_absoluto from empleados;
 ```
-<img src="Tarea_3/capturas/3.png" width=450/>
+<img src="capturas/3.png" width=450/>
 
 * Funciones de Fecha y Hora: Muestra la fecha actual.
 
 ```sql
 select current_date as fecha_actual from empleados limit 1;
 ```
-<img src="Tarea_3/capturas/4.png" width=450/>
+<img src="capturas/4.png" width=450/>
 
 * Funciones de Agregación: Calcula el promedio de salarios de todos los empleados. Convierte la cadena '123' a un valor entero.
 ```sql
 select cast(sum(salario)/count(salario) as integer) as promedio from empleados;
 ```
-<img src="Tarea_3/capturas/5.png" width=450/>
+<img src="capturas/5.png" width=450/>
 
 * Funciones de Manipulación de Cadenas: Concatena el nombre y el departamento de cada empleado.
 
 ```sql
 select concat(nombre, ' ', departamento) as nombre_departamento from empleados;
 ```
-<img src="Tarea_3/capturas/6.png" width=450/>
+<img src="capturas/6.png" width=450/>
 
 * Funciones de Manipulación de Cadenas (CONCAT_WS): Concatena el nombre y el departamento de cada empleado con un guion como separador.
 
 ```sql
 select concat_ws('-', nombre, departamento) as nombre_departamento from empleados;
 ```
-<img src="Tarea_3/capturas/7.png" width=450/>
+<img src="capturas/7.png" width=450/>
 
 * Funciones de Control de Flujo (CASE): Categoriza a los empleados según sus salarios.
 
@@ -79,21 +79,21 @@ from empleados;
 ```sql
 select sum(salario) as suma from empleados;
 ```
-<img src="Tarea_3/capturas/9.png" width=450/>
+<img src="capturas/9.png" width=450/>
 
 * Funciones Numéricas (ROUND): Redondea el salario de todos los empleados a dos decimales.
 
 ```sql
 select round(salario, 2) as salario_redondeado from empleados;
 ```
-<img src="Tarea_3/capturas/10.png" width=450/>
+<img src="capturas/10.png" width=450/>
 
 * Funciones de Manipulación de Cadenas (LENGTH): Muestra la longitud de cada nombre de empleado.
 
 ```sql
 select nombre, length(nombre) as longitud_del_nombre from empleados;
 ```
-<img src="Tarea_3/capturas/11.png" width=450/>
+<img src="capturas/11.png" width=450/>
 
 * Funciones de Agregación (COUNT): Cuenta el número total de empleados en cada departamento.
 
@@ -106,7 +106,7 @@ select count()
 ```sql
 select current_time from empleados limit 1;
 ```
-<img src="Tarea_3/capturas/13.png" width=450/>
+<img src="capturas/13.png" width=450/>
 
 * Funciones de Conversión (CAST): Convierte el salario a un valor de punto flotante.
 
