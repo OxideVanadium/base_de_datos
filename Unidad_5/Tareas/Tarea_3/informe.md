@@ -65,14 +65,17 @@ select concat_ws('-', nombre, departamento) as nombre_departamento from empleado
 * Funciones de Control de Flujo (CASE): Categoriza a los empleados según sus salarios.
 
 ```sql
-select nombre,
-case
-when salario<50 then 'Menos de 50000'
-when salario between 50 and 60 then 'Entre 50000 y 60000'
-when salario>70 then 'Mayor de 70000'
-end as categoria
+select nombre, departamento, salario, 
+case 
+when salario <50000 then 'C'
+when salario between 50000 and 60000 then 'B'
+when salario >60000 then 'A'
+else 'otro'
+end as 'categoria'
 from empleados;
 ```
+
+<img src="capturas/8.png" width=450/>
 
 * Funciones de Agregación (SUM): Calcula la suma total de salarios de todos los empleados.
 
@@ -98,8 +101,11 @@ select nombre, length(nombre) as longitud_del_nombre from empleados;
 * Funciones de Agregación (COUNT): Cuenta el número total de empleados en cada departamento.
 
 ```sql
-select count()
+select departamento, count(*) as numero_total 
+from empleados
+group by departamento;
 ```
+<img src="capturas/12.png" width=450/>
 
 * Funciones de Fecha y Hora (CURRENT_TIME): Muestra la hora actual.
 
@@ -122,7 +128,8 @@ select substr(nombre, 0, 4) as nombre from empleados;
 ```
 <img src="capturas/15.png" width=450/>
 
-* Order By and Like. 
+### Order By and Like. 
+
 * Empleados en el departamento de 'Ventas' con salarios superiores a 52000.
 
 ```sql
@@ -135,7 +142,7 @@ select * from empleados where departamento='Ventas' and salario>52000;
 ```sql
 select * from empleados 
 where nombre like '%a%'
-order by(salario);
+order by salario;
 ```
 <img src="capturas/17.png" width=450/>
 
@@ -160,8 +167,8 @@ order by salario desc limit 5;
 
 ```sql
 select * from empleados
-where nombre like 'M%' and
-salario>50000;
+where nombre like 'M%' or nombre like 'N%'
+and salario>50000;
 ```
 <img src="capturas/20.png" width=450/>
 
@@ -177,21 +184,25 @@ order by nombre;
 * Empleados con salarios únicos (eliminando duplicados) en orden ascendente.
 
 ```sql
-
+select distinct salario from empleados;
 ```
+<img src="capturas/22.png" width=450/>
 
 * Empleados cuyos nombres terminan con 'o' o 'a' y están en el departamento 'Ventas'.
 
 ```sql
-
+select * from empleados 
+where departamento='Ventas'
+and (nombre like '%a' or nombre like '%o');
 ```
-
+<img src="capturas/23.png" width=450/>
 
 * Empleados con salarios fuera del rango de 55000 a 70000, ordenados por departamento.
 
 ```sql
 select * from empleados
-where salario not in(55000, 70000);
+where salario not in(55000, 70000)
+order by departamento;
 ```
 <img src="capturas/24.png" width=450/>
 
