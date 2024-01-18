@@ -184,7 +184,7 @@ order by nombre;
 * Empleados con salarios únicos (eliminando duplicados) en orden ascendente.
 
 ```sql
-select distinct salario from empleados;
+select distinct salario from empleados order by salario;
 ```
 <img src="capturas/22.png" width=450/>
 
