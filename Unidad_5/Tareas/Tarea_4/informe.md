@@ -23,7 +23,7 @@
 * Indica si la BBDD esta normalizada hasta la 3ª forma normal, justificando la respuesta.
 
 * 1FN: solo valores atomicos
-* 2FN: dependencias funcionales del clave principal
+* 2FN: solo dependencias funcionales del clave principal
 * 3FN: no hay dependencias transitivas
 
 ### Paso 4: Responde a las siguientes cuestiones
