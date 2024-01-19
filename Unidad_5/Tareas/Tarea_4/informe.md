@@ -431,27 +431,27 @@ group by categoria;
 ```
 
 * Listar los productos que tienen un precio igual a la media de precios.
-!!!!!!! 
+
 ```sql
 select * from productos
 where precio=(select avg(precio) from productos);
 ```
 
 * Calcular el precio total de los productos vendidos en cada fecha.
-!!!! 
+ 
 ```sql
 select sum(productos.precio*ventas.cantidad) as precio_total, fecha
 from productos, ventas
 where productos.id=ventas.id_producto
 group by fecha;
-┌────────┬──────────┬──────────────┬────────────┐
-│ precio │ cantidad │ precio_total │   fecha    │
-├────────┼──────────┼──────────────┼────────────┤
-│ 2.5    │ 5        │ 29.4         │ 2024-01-17 │
-│ 1.0    │ 10       │ 25.8         │ 2024-01-18 │
-│ 1.7    │ 7        │ 26.9         │ 2024-01-19 │
-│ 1.2    │ 6        │ 7.2          │ 2024-01-20 │
-└────────┴──────────┴──────────────┴────────────┘
+┌──────────────┬────────────┐
+│ precio_total │   fecha    │
+├──────────────┼────────────┤
+│ 29.4         │ 2024-01-17 │
+│ 25.8         │ 2024-01-18 │
+│ 26.9         │ 2024-01-19 │
+│ 7.2          │ 2024-01-20 │
+└──────────────┴────────────┘
 ```
 
 * Mostrar los productos con un nombre que termina con la letra 'o'.
