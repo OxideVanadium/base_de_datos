@@ -45,24 +45,43 @@ select * from productos where categoria='Bebidas';
 * Listar los productos ordenados por precio de forma descendente.
 
 ```sql
-select * from productos order by precio;
-┌────┬──────────────────┬───────────┬────────┐
-│ id │      nombre      │ categoria │ precio │
-├────┼──────────────────┼───────────┼────────┤
-│ 16 │ Café             │ Bebidas   │ 5.0    │
-│ 19 │ Botellas de Agua │ Bebidas   │ 1.0    │
-│ 20 │ Cerveza          │ Bebidas   │ 3.8    
+select * from productos order by precio desc;
+┌────┬────────────────────┬───────────┬────────┐
+│ id │       nombre       │ categoria │ precio │
+├────┼────────────────────┼───────────┼────────┤
+│ 6  │ Huevos             │ Lácteos   │ 1.0    │
+│ 19 │ Botellas de Agua   │ Bebidas   │ 1.0    │
+│ 3  │ Pan                │ Panadería │ 1.2    │
+│ 18 │ Jabón de Baño      │ Higiene   │ 1.2    │
+│ 11 │ Papel Higiénico    │ Hogar     │ 1.5    │
+│ 14 │ Galletas           │ Snacks    │ 1.7    │
+│ 2  │ Leche              │ Lácteos   │ 1.8    │
+│ 7  │ Yogurt             │ Lácteos   │ 2.0    │
+│ 12 │ Cepillo de Dientes │ Higiene   │ 2.0    │
+│ 8  │ Tomates            │ Verduras  │ 2.2    │
+│ 17 │ Sopa enlatada      │ Conservas │ 2.3    │
+│ 1  │ Arroz              │ Alimentos │ 2.5    │
+│ 13 │ Detergente         │ Limpieza  │ 2.8    │
+│ 4  │ Manzanas           │ Frutas    │ 3.0    │
+│ 10 │ Cereal             │ Desayuno  │ 3.5    │
+│ 20 │ Cerveza            │ Bebidas   │ 3.8    │
+│ 9  │ Queso              │ Lácteos   │ 4.0    │
+│ 15 │ Aceite de Oliva    │ Cocina    │ 4.5    │
+│ 16 │ Café               │ Bebidas   │ 5.0    │
+│ 5  │ Pollo              │ Carnes    │ 5.5    │
+└────┴────────────────────┴───────────┴────────┘
+
 ```
 
 * Calcular el precio total de todos los productos en la tabla "productos".
 
 ```sql
-select count(precio) as precio_total from productos;
+select sum(precio) as precio_total from productos;
 
 ┌──────────────┐
 │ precio_total │
 ├──────────────┤
-│ 20           │
+│ 52.5         │
 └──────────────┘
 
 ```
@@ -93,11 +112,11 @@ select * from productos where nombre like '%a%';
 * Obtener la cantidad total de productos vendidos en todas las fechas.
 
 ```sql
-select count(cantidad) as cantidad_total from ventas;
+select sum(cantidad) as cantidad_total from ventas;
 ┌────────────────┐
 │ cantidad_total │
 ├────────────────┤
-│ 10             │
+│ 43             │
 └────────────────┘
 ```
 
