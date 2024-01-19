@@ -6,11 +6,25 @@
 
 ### Paso 2 Lectura del fichero sql.
 
+```sql
+.read supermercado_dump.sql
+```
+
 ### Paso 3: Responde a las siguientes cuestiones
 
 * Realiza el diagrama ER de la BBDD supermercado.
+
+<img src=er.png />
+
 * Realiza el diagrama MR de la BBDD supermercado.
+
+<img src=rel.png />
+
 * Indica si la BBDD esta normalizada hasta la 3ª forma normal, justificando la respuesta.
+
+* 1FN: solo valores atomicos
+* 2FN: dependencias funcionales del clave principal
+* 3FN: no hay dependencias transitivas
 
 ### Paso 4: Responde a las siguientes cuestiones
 
@@ -116,7 +130,22 @@ group by categoria;
 * Listar los productos que no han sido vendidos.
 
 ```sql
-
+select * from productos
+where id not in (select ventas.id_producto from productos, ventas where productos.id=ventas.id_producto);
+┌────┬────────────────────┬───────────┬────────┐
+│ id │       nombre       │ categoria │ precio │
+├────┼────────────────────┼───────────┼────────┤
+│ 3  │ Pan                │ Panadería │ 1.2    │
+│ 7  │ Yogurt             │ Lácteos   │ 2.0    │
+│ 9  │ Queso              │ Lácteos   │ 4.0    │
+│ 11 │ Papel Higiénico    │ Hogar     │ 1.5    │
+│ 12 │ Cepillo de Dientes │ Higiene   │ 2.0    │
+│ 13 │ Detergente         │ Limpieza  │ 2.8    │
+│ 15 │ Aceite de Oliva    │ Cocina    │ 4.5    │
+│ 17 │ Sopa enlatada      │ Conservas │ 2.3    │
+│ 19 │ Botellas de Agua   │ Bebidas   │ 1.0    │
+│ 20 │ Cerveza            │ Bebidas   │ 3.8    │
+└────┴────────────────────┴───────────┴────────┘
 ```
 
 * Calcular el precio promedio de los productos en la categoría "Snacks".
@@ -424,7 +453,7 @@ select * from productos where nombre like '%o';
 * Encontrar los productos que han sido vendidos en más de una fecha.
 
 ```sql
-
+:(
 ```
 
 * Listar los productos cuya categoría comienza con la letra 'L'.
@@ -493,7 +522,19 @@ where length(nombre)>=5;
 
 ```sql
 select * from productos
-where precio>avg(precio);
+where precio>(select avg(precio) from productos);
+┌────┬─────────────────┬───────────┬────────┐
+│ id │     nombre      │ categoria │ precio │
+├────┼─────────────────┼───────────┼────────┤
+│ 4  │ Manzanas        │ Frutas    │ 3.0    │
+│ 5  │ Pollo           │ Carnes    │ 5.5    │
+│ 9  │ Queso           │ Lácteos   │ 4.0    │
+│ 10 │ Cereal          │ Desayuno  │ 3.5    │
+│ 13 │ Detergente      │ Limpieza  │ 2.8    │
+│ 15 │ Aceite de Oliva │ Cocina    │ 4.5    │
+│ 16 │ Café            │ Bebidas   │ 5.0    │
+│ 20 │ Cerveza         │ Bebidas   │ 3.8    │
+└────┴─────────────────┴───────────┴────────┘
 ```
 
 
