@@ -433,9 +433,8 @@ group by categoria;
 * Listar los productos que tienen un precio igual a la media de precios.
 
 ```sql
-with const as promedio(select avg(precio) from productos)
 select * from productos
-where precio=promedio;
+where precio=(select avg(precio) from productos);
 ```
 
 * Calcular el precio total de los productos vendidos en cada fecha.
