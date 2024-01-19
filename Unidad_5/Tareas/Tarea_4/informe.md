@@ -431,16 +431,16 @@ group by categoria;
 ```
 
 * Listar los productos que tienen un precio igual a la media de precios.
-
+!!!!!!! 
 ```sql
 select * from productos
 where precio=(select avg(precio) from productos);
 ```
 
 * Calcular el precio total de los productos vendidos en cada fecha.
-
+!!!! 
 ```sql
-select productos.precio, ventas.cantidad, sum(productos.precio*ventas.cantidad) as precio_total, fecha
+select sum(productos.precio*ventas.cantidad) as precio_total, fecha
 from productos, ventas
 where productos.id=ventas.id_producto
 group by fecha;
