@@ -241,9 +241,16 @@ select * from Productos where nombre regexp '^[A|B]';
 └────┴────────────────────────┴────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cliente.
+select *, sum(cantidad) as cantidad 
+from Pedidos
+group by id_cliente
+order by id_cliente;
 
 
 -- Obtener los clientes que han realizado más de un pedido en febrero de 2024.
+select c.*, sum(p.*) as pedidos from Clientes as c, Pedidos as p
+group by p.id_cliente
+where c.id=p.id_cliente;
 
 -- Obtener los productos con precio entre 100 y 500.
 select * from Productos where precio between 100 and 500;
@@ -262,6 +269,10 @@ select * from Productos where precio between 100 and 500;
 **/
 
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cantidad descendente.
+select *, sum(cantidad) as cantidad_total
+from Pedidos
+group by id_cliente 
+order by cantidad_total desc;
 
 -- Obtener los clientes que tienen una 'a' en cualquier posición de su nombre.
 select * from Clientes where nombre regexp 'a';
