@@ -47,11 +47,11 @@ select * from libro where titulo regexp '^[aeiouAEIOU]';
 
 -- Libros cuyo autor tiene al menos una vocal repetida.
 
-
+SELECT * FROM libros WHERE autor REGEXP '(a.*a|e.*e|i.*i|o.*o|u.*u)';
 
 -- Libros con precios que tienen dos dígitos decimales exactos.
 
-
+select * from libros where precio regexp '^\d+.\d{2}$';
 
 -- Libros cuyos títulos tienen al menos tres palabras.
 
@@ -275,26 +275,39 @@ sqlite>
 **/
 
 -- Seleccionar los libros cuyo título termina con una vocal:
-
+select * from libros where titulo regexp 'euioa$';
 
 -- Obtener todos los autores cuyo nombre contiene la secuencia "er":
+select * from autor where nombre regexp 'er';
 
 -- Seleccionar los libros cuyo título empieza con la palabra "The":
+select * from libros where titulo regexp '^The';
 
 -- Obtener todos los autores cuyo nombre tiene al menos una letra mayúscula:
+select * from autor where nombre regexp '[A-Z]';
 
 -- Seleccionar los libros cuyo precio es un número decimal con exactamente dos decimales:
+select * from libros where precio regexp '^\d+.\d{2}';
 
 -- Obtener todos los autores cuyo nombre no contiene números:
+select * from autor where nombre not regexp '\d';
 
 -- Seleccionar los libros cuyo título contiene al menos tres vocales:
+select * from libros where titulo regexp '[aeiouAEIOU].*[aeiouAEIOU].*[aeiouAEIOU]';
 
 -- Obtener todos los autores cuyo nombre inicia con una consonante:
+select * from autor where nombre not regexp '[euioaEUIOA]$';
 
 -- Seleccionar los libros cuyo título no contiene la palabra "Science":
+select * from libros where titulo not regexp 'Science';
+
 
 -- Obtener todos los autores cuyo nombre tiene al menos una letra repetida consecutivamente:
+SELECT * FROM autores WHERE nombre REGEXP '(\\w)\\1';
 
 -- Obtener todos los autores cuyo nombre empieza con "M" o termina con "n":
+SELECT * FROM autores WHERE nombre REGEXP '^(M|.*n)$';
+
 
 -- Obtener todos los autores cuyo nombre no contiene caracteres especiales:
+select * from autor where nombre not regexp '\W';
