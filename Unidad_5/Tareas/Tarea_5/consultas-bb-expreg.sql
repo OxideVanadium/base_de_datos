@@ -516,7 +516,7 @@ select * from libro where titulo not regexp 'Science';
 
 
 -- Obtener todos los autores cuyo nombre empieza con "M" o termina con "n":
-SELECT * FROM autor WHERE nombre REGEXP '^(M|.*n)$';
+select * from autor where nombre REGEXP '^(M|.*n)$';
 /**
 ┌────┬─────────────┐
 │ id │   nombre    │
