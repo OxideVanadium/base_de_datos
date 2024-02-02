@@ -181,6 +181,17 @@ group by pe.id_producto;
 **/
 
 -- Obtener los clientes que han realizado más de un pedido.
+select c.*, count(p.id_pedido) as pedidos from Clientes as c, Pedidos as p
+where c.id=p.id_cliente
+group by p.id_cliente
+having pedidos>1;
+/**
+sqlite> select c.*, count(p.id_pedido) as pedidos from Clientes as c, Pedidos as p
+   ...> where c.id=p.id_cliente
+   ...> group by p.id_cliente
+   ...> having pedidos>1;
+sqlite> 
+**/
 
 -- Obtener los productos que tienen un precio registrado.
 select * from Productos where precio is not null;
@@ -241,16 +252,60 @@ select * from Productos where nombre regexp '^[A|B]';
 └────┴────────────────────────┴────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cliente.
-select *, sum(cantidad) as cantidad 
+select *, sum(cantidad) as cantidad_total
 from Pedidos
 group by id_cliente
 order by id_cliente;
+/**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┬────────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │ cantidad_total │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┼────────────────┤
+│ 1         │ 1          │ 1           │ 2        │ 2024-02-01   │ 2              │
+│ 2         │ 2          │ 2           │ 1        │ 2024-02-02   │ 1              │
+│ 3         │ 3          │ 3           │ 3        │ 2024-02-03   │ 3              │
+│ 4         │ 4          │ 4           │ 1        │ 2024-02-04   │ 1              │
+│ 5         │ 5          │ 5           │ 2        │ 2024-02-05   │ 2              │
+│ 6         │ 6          │ 6           │ 1        │ 2024-02-06   │ 1              │
+│ 7         │ 7          │ 7           │ 3        │ 2024-02-07   │ 3              │
+│ 8         │ 8          │ 8           │ 2        │ 2024-02-08   │ 2              │
+│ 9         │ 9          │ 9           │ 1        │ 2024-02-09   │ 1              │
+│ 10        │ 10         │ 10          │ 2        │ 2024-02-10   │ 2              │
+│ 11        │ 11         │ 11          │ 1        │ 2024-02-11   │ 1              │
+│ 12        │ 12         │ 12          │ 3        │ 2024-02-12   │ 3              │
+│ 13        │ 13         │ 13          │ 1        │ 2024-02-13   │ 1              │
+│ 14        │ 14         │ 14          │ 2        │ 2024-02-14   │ 2              │
+│ 15        │ 15         │ 15          │ 1        │ 2024-02-15   │ 1              │
+│ 16        │ 16         │ 16          │ 3        │ 2024-02-16   │ 3              │
+│ 17        │ 17         │ 17          │ 2        │ 2024-02-17   │ 2              │
+│ 18        │ 18         │ 18          │ 1        │ 2024-02-18   │ 1              │
+│ 19        │ 19         │ 19          │ 2        │ 2024-02-19   │ 2              │
+│ 20        │ 20         │ 20          │ 1        │ 2024-02-20   │ 1              │
+│ 21        │ 21         │ 21          │ 3        │ 2024-02-21   │ 3              │
+│ 22        │ 22         │ 22          │ 1        │ 2024-02-22   │ 1              │
+│ 23        │ 23         │ 23          │ 2        │ 2024-02-23   │ 2              │
+│ 24        │ 24         │ 24          │ 1        │ 2024-02-24   │ 1              │
+│ 25        │ 25         │ 25          │ 3        │ 2024-02-25   │ 3              │
+│ 26        │ 26         │ 26          │ 2        │ 2024-02-26   │ 2              │
+│ 27        │ 27         │ 27          │ 1        │ 2024-02-27   │ 1              │
+│ 28        │ 28         │ 28          │ 2        │ 2024-02-28   │ 2              │
+│ 29        │ 29         │ 29          │ 1        │ 2024-02-29   │ 1              │
+│ 30        │ 30         │ 30          │ 3        │ 2024-03-01   │ 3              │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┴────────────────┘
+**/
 
 
 -- Obtener los clientes que han realizado más de un pedido en febrero de 2024.
-select c.*, sum(p.*) as pedidos from Clientes as c, Pedidos as p
+select c.*, count(p.id_pedido) as pedidos from Clientes as c, Pedidos as p
+where c.id=p.id_cliente and p.fecha_pedido regexp '2024-02'
 group by p.id_cliente
-where c.id=p.id_cliente;
+having pedidos>1;
+/**
+sqlite> select c.*, count(p.id_pedido) as pedidos from Clientes as c, Pedidos as p
+   ...> where c.id=p.id_cliente and p.fecha_pedido regexp '2024-02'
+   ...> group by p.id_cliente
+   ...> having pedidos>1;
+sqlite> 
+**/
 
 -- Obtener los productos con precio entre 100 y 500.
 select * from Productos where precio between 100 and 500;
@@ -273,6 +328,42 @@ select *, sum(cantidad) as cantidad_total
 from Pedidos
 group by id_cliente 
 order by cantidad_total desc;
+/**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┬────────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │ cantidad_total │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┼────────────────┤
+│ 30        │ 30         │ 30          │ 3        │ 2024-03-01   │ 3              │
+│ 25        │ 25         │ 25          │ 3        │ 2024-02-25   │ 3              │
+│ 21        │ 21         │ 21          │ 3        │ 2024-02-21   │ 3              │
+│ 16        │ 16         │ 16          │ 3        │ 2024-02-16   │ 3              │
+│ 12        │ 12         │ 12          │ 3        │ 2024-02-12   │ 3              │
+│ 7         │ 7          │ 7           │ 3        │ 2024-02-07   │ 3              │
+│ 3         │ 3          │ 3           │ 3        │ 2024-02-03   │ 3              │
+│ 28        │ 28         │ 28          │ 2        │ 2024-02-28   │ 2              │
+│ 26        │ 26         │ 26          │ 2        │ 2024-02-26   │ 2              │
+│ 23        │ 23         │ 23          │ 2        │ 2024-02-23   │ 2              │
+│ 19        │ 19         │ 19          │ 2        │ 2024-02-19   │ 2              │
+│ 17        │ 17         │ 17          │ 2        │ 2024-02-17   │ 2              │
+│ 14        │ 14         │ 14          │ 2        │ 2024-02-14   │ 2              │
+│ 10        │ 10         │ 10          │ 2        │ 2024-02-10   │ 2              │
+│ 8         │ 8          │ 8           │ 2        │ 2024-02-08   │ 2              │
+│ 5         │ 5          │ 5           │ 2        │ 2024-02-05   │ 2              │
+│ 1         │ 1          │ 1           │ 2        │ 2024-02-01   │ 2              │
+│ 29        │ 29         │ 29          │ 1        │ 2024-02-29   │ 1              │
+│ 27        │ 27         │ 27          │ 1        │ 2024-02-27   │ 1              │
+│ 24        │ 24         │ 24          │ 1        │ 2024-02-24   │ 1              │
+│ 22        │ 22         │ 22          │ 1        │ 2024-02-22   │ 1              │
+│ 20        │ 20         │ 20          │ 1        │ 2024-02-20   │ 1              │
+│ 18        │ 18         │ 18          │ 1        │ 2024-02-18   │ 1              │
+│ 15        │ 15         │ 15          │ 1        │ 2024-02-15   │ 1              │
+│ 13        │ 13         │ 13          │ 1        │ 2024-02-13   │ 1              │
+│ 11        │ 11         │ 11          │ 1        │ 2024-02-11   │ 1              │
+│ 9         │ 9          │ 9           │ 1        │ 2024-02-09   │ 1              │
+│ 6         │ 6          │ 6           │ 1        │ 2024-02-06   │ 1              │
+│ 4         │ 4          │ 4           │ 1        │ 2024-02-04   │ 1              │
+│ 2         │ 2          │ 2           │ 1        │ 2024-02-02   │ 1              │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┴────────────────┘
+**/
 
 -- Obtener los clientes que tienen una 'a' en cualquier posición de su nombre.
 select * from Clientes where nombre regexp 'a';
@@ -328,6 +419,46 @@ where id_cliente=1 and fecha_pedido='2024-02-01';
 └───────────┴────────────┴─────────────┴──────────┴──────────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por producto ordenado por total de productos descendente.
+select *, sum(cantidad) as cantidad_total
+from Pedidos
+group by id_producto 
+order by cantidad_total desc;
+/**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┬────────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │ cantidad_total │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┼────────────────┤
+│ 30        │ 30         │ 30          │ 3        │ 2024-03-01   │ 3              │
+│ 25        │ 25         │ 25          │ 3        │ 2024-02-25   │ 3              │
+│ 21        │ 21         │ 21          │ 3        │ 2024-02-21   │ 3              │
+│ 16        │ 16         │ 16          │ 3        │ 2024-02-16   │ 3              │
+│ 12        │ 12         │ 12          │ 3        │ 2024-02-12   │ 3              │
+│ 7         │ 7          │ 7           │ 3        │ 2024-02-07   │ 3              │
+│ 3         │ 3          │ 3           │ 3        │ 2024-02-03   │ 3              │
+│ 28        │ 28         │ 28          │ 2        │ 2024-02-28   │ 2              │
+│ 26        │ 26         │ 26          │ 2        │ 2024-02-26   │ 2              │
+│ 23        │ 23         │ 23          │ 2        │ 2024-02-23   │ 2              │
+│ 19        │ 19         │ 19          │ 2        │ 2024-02-19   │ 2              │
+│ 17        │ 17         │ 17          │ 2        │ 2024-02-17   │ 2              │
+│ 14        │ 14         │ 14          │ 2        │ 2024-02-14   │ 2              │
+│ 10        │ 10         │ 10          │ 2        │ 2024-02-10   │ 2              │
+│ 8         │ 8          │ 8           │ 2        │ 2024-02-08   │ 2              │
+│ 5         │ 5          │ 5           │ 2        │ 2024-02-05   │ 2              │
+│ 1         │ 1          │ 1           │ 2        │ 2024-02-01   │ 2              │
+│ 29        │ 29         │ 29          │ 1        │ 2024-02-29   │ 1              │
+│ 27        │ 27         │ 27          │ 1        │ 2024-02-27   │ 1              │
+│ 24        │ 24         │ 24          │ 1        │ 2024-02-24   │ 1              │
+│ 22        │ 22         │ 22          │ 1        │ 2024-02-22   │ 1              │
+│ 20        │ 20         │ 20          │ 1        │ 2024-02-20   │ 1              │
+│ 18        │ 18         │ 18          │ 1        │ 2024-02-18   │ 1              │
+│ 15        │ 15         │ 15          │ 1        │ 2024-02-15   │ 1              │
+│ 13        │ 13         │ 13          │ 1        │ 2024-02-13   │ 1              │
+│ 11        │ 11         │ 11          │ 1        │ 2024-02-11   │ 1              │
+│ 9         │ 9          │ 9           │ 1        │ 2024-02-09   │ 1              │
+│ 6         │ 6          │ 6           │ 1        │ 2024-02-06   │ 1              │
+│ 4         │ 4          │ 4           │ 1        │ 2024-02-04   │ 1              │
+│ 2         │ 2          │ 2           │ 1        │ 2024-02-02   │ 1              │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┴────────────────┘
+**/
 
 -- Obtener los productos que no tienen un precio registrado.
 select * from Productos where precio is null;
@@ -405,6 +536,46 @@ select * from Productos where nombre regexp 'o';
 └────┴───────────────────────────────────┴────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cliente.
+select *, sum(cantidad) as cantidad_total
+from Pedidos
+group by id_cliente 
+order by id_cliente;
+/**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┬────────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │ cantidad_total │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┼────────────────┤
+│ 1         │ 1          │ 1           │ 2        │ 2024-02-01   │ 2              │
+│ 2         │ 2          │ 2           │ 1        │ 2024-02-02   │ 1              │
+│ 3         │ 3          │ 3           │ 3        │ 2024-02-03   │ 3              │
+│ 4         │ 4          │ 4           │ 1        │ 2024-02-04   │ 1              │
+│ 5         │ 5          │ 5           │ 2        │ 2024-02-05   │ 2              │
+│ 6         │ 6          │ 6           │ 1        │ 2024-02-06   │ 1              │
+│ 7         │ 7          │ 7           │ 3        │ 2024-02-07   │ 3              │
+│ 8         │ 8          │ 8           │ 2        │ 2024-02-08   │ 2              │
+│ 9         │ 9          │ 9           │ 1        │ 2024-02-09   │ 1              │
+│ 10        │ 10         │ 10          │ 2        │ 2024-02-10   │ 2              │
+│ 11        │ 11         │ 11          │ 1        │ 2024-02-11   │ 1              │
+│ 12        │ 12         │ 12          │ 3        │ 2024-02-12   │ 3              │
+│ 13        │ 13         │ 13          │ 1        │ 2024-02-13   │ 1              │
+│ 14        │ 14         │ 14          │ 2        │ 2024-02-14   │ 2              │
+│ 15        │ 15         │ 15          │ 1        │ 2024-02-15   │ 1              │
+│ 16        │ 16         │ 16          │ 3        │ 2024-02-16   │ 3              │
+│ 17        │ 17         │ 17          │ 2        │ 2024-02-17   │ 2              │
+│ 18        │ 18         │ 18          │ 1        │ 2024-02-18   │ 1              │
+│ 19        │ 19         │ 19          │ 2        │ 2024-02-19   │ 2              │
+│ 20        │ 20         │ 20          │ 1        │ 2024-02-20   │ 1              │
+│ 21        │ 21         │ 21          │ 3        │ 2024-02-21   │ 3              │
+│ 22        │ 22         │ 22          │ 1        │ 2024-02-22   │ 1              │
+│ 23        │ 23         │ 23          │ 2        │ 2024-02-23   │ 2              │
+│ 24        │ 24         │ 24          │ 1        │ 2024-02-24   │ 1              │
+│ 25        │ 25         │ 25          │ 3        │ 2024-02-25   │ 3              │
+│ 26        │ 26         │ 26          │ 2        │ 2024-02-26   │ 2              │
+│ 27        │ 27         │ 27          │ 1        │ 2024-02-27   │ 1              │
+│ 28        │ 28         │ 28          │ 2        │ 2024-02-28   │ 2              │
+│ 29        │ 29         │ 29          │ 1        │ 2024-02-29   │ 1              │
+│ 30        │ 30         │ 30          │ 3        │ 2024-03-01   │ 3              │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┴────────────────┘
+**/
 
 -- Obtener los clientes cuyos nombres no contienen la letra 'i':
 select * from Clientes where nombre not regexp 'i';
@@ -453,6 +624,17 @@ select min(precio) as minimo from Productos;
 **/
 
 -- Obtener los clientes que han realizado al menos un pedido en febrero de 2024.
+select c.*, count(p.id_pedido) as pedidos from Clientes as c, Pedidos as p
+where p.id_cliente=c.id and fecha_pedido regexp '2024-02'
+group by p.id_cliente
+having pedidos>1;
+/**
+sqlite> select c.*, count(p.id_pedido) as pedidos from Clientes as c, Pedidos as p
+   ...> where p.id_cliente=c.id and fecha_pedido regexp '2024-02'
+   ...> group by p.id_cliente
+   ...> having pedidos>1;
+sqlite> 
+**/
 
 -- Obtener la fecha del último pedido realizado por el cliente con ID 3.
 select * from Pedidos 
@@ -478,7 +660,42 @@ select * from Clientes where nombre regexp 'a$';
 └────┴────────────────┴───────────────────────┘
 **/
 -- Obtener los clientes cuyos nombres tienen al menos 4 vocales (mayúsculas|minúsculas).
-
+select * from Clientes where nombre regexp 'e|u|i|o|a|E|U|I|O|A{4,}';
+/**
+┌────┬─────────────────┬───────────────────────────┐
+│ id │     nombre      │           email           │
+├────┼─────────────────┼───────────────────────────┤
+│ 1  │ Juan Pérez      │ juan@example.com          │
+│ 2  │ María Gómez     │ maria@example.com         │
+│ 3  │ Carlos López    │ carlos@example.com        │
+│ 4  │ Ana Rodríguez   │ ana@example.com           │
+│ 5  │ Luisa Martínez  │ luisa@example.com         │
+│ 6  │ Pedro Sánchez   │ pedro@example.com         │
+│ 7  │ Laura García    │ laura@example.com         │
+│ 8  │ Miguel Martín   │ miguel@example.com        │
+│ 9  │ Elena González  │ elena@example.com         │
+│ 10 │ David Torres    │ david@example.com         │
+│ 11 │ Sofía Ruiz      │ sofia@example.com         │
+│ 12 │ Javier López    │ javier@example.com        │
+│ 13 │ Carmen Vargas   │ carmen@example.com        │
+│ 14 │ Daniel Muñoz    │ daniel@example.com        │
+│ 15 │ Isabel Serrano  │ isabel@example.com        │
+│ 16 │ Alejandro Muñoz │ alejandro@example.com     │
+│ 17 │ Raquel Herrera  │ raquel@example.com        │
+│ 18 │ Francisco Mora  │ francisco@example.com     │
+│ 19 │ Marina Díaz     │ marina@example.com        │
+│ 20 │ Antonio Jiménez │ antonio@example.com       │
+│ 21 │ Beatriz Romero  │ beatriz@example.com       │
+│ 22 │ Carlos Gómez    │ carlos.gomez@example.com  │
+│ 23 │ Clara Sánchez   │ clara.sanchez@example.com │
+│ 24 │ Andrés Martínez │ andres@example.com        │
+│ 25 │ Lucía Díaz      │ lucia@example.com         │
+│ 26 │ Mario Serrano   │ mario@example.com         │
+│ 27 │ Eva Torres      │ eva.torres@example.com    │
+│ 28 │ Roberto Ruiz    │ roberto@example.com       │
+│ 29 │ Celia García    │ celia@example.com         │
+└────┴─────────────────┴───────────────────────────┘
+**/
 -- Obtener los productos cuyo precio tenga al menos 4 números sin contrar los decimales.
 select * from Productos where precio regexp '\d{4,}.';
 /**
