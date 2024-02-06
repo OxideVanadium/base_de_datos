@@ -123,7 +123,7 @@ sqlite>
 -- Encontrar los clientes que han comprado coches de la marca 'Toyota':
   -- Cosas que debo de tener en cuenta:
     -- ¿Qué me están pidiendo?. Like | regexp | =. Tabla normalizada ?
-select distinct cl.* from clientes as cl, coches as co, ventas as v 
+select cl.* from clientes as cl, coches as co, ventas as v 
 where v.id_cliente=cl.id_cliente and co.id_coche=v.id_coche 
 and co.marca='Toyota';
 
@@ -191,7 +191,7 @@ select * from coches
 where precio>(
   select avg(precio) from coches
   where id_coche in (
-    select distinct v.id_coche from clientes as cl, ventas as v 
+    select v.id_coche from clientes as cl, ventas as v 
     where cl.id_cliente=v.id_cliente
     and cl.edad<30
   )
