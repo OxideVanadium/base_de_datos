@@ -216,3 +216,20 @@ select co.marca, co.id_coche, co.precio*count(v.id_coche) as total from coches a
 where v.id_coche=co.id_coche
 group by co.marca
 order by total;
+
+/**
+┌────────────┬──────────┬─────────┐
+│   marca    │ id_coche │  total  │
+├────────────┼──────────┼─────────┤
+│ Volkswagen │ 6        │ 20000.0 │
+│ Honda      │ 2        │ 22000.0 │
+│ Toyota     │ 1        │ 25000.0 │
+│ Hyundai    │ 7        │ 27000.0 │
+│ Chevrolet  │ 4        │ 28000.0 │
+│ Ford       │ 3        │ 30000.0 │
+│ Nissan     │ 5        │ 32000.0 │
+│ Mazda      │ 8        │ 35000.0 │
+│ Tesla      │ 10       │ 40000.0 │
+└────────────┴──────────┴─────────┘
+**/
+
