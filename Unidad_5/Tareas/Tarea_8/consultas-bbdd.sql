@@ -156,7 +156,7 @@ and cl.edad<30;
 **/
 --Consulta para obtener el modelo y el año de los coches vendidos en 2023 y llevados a reparar.
 select distinct co.modelo, co.año from coches as co, reparacion as r, ventas as v 
-where co.id_coche=r.id_coche and co.id_coche=v.id_coche and co.id_coche=r.id_coche
+where co.id_coche=r.id_coche and co.id_coche=v.id_coche 
 and v.fecha_venta regexp '^2023';
 /**
 ┌────────────────┬──────┐
@@ -208,42 +208,47 @@ and cl.edad>35;
 **/
 
 --Consulta para calcular el precio total de los coches vendidos a clientes que viven en una calle (en la dirección).
-select cl.direccion, sum(co.precio) as total from coches as co, clientes as cl, ventas as v 
+select substr(cl.direccion, 0, instr(direccion, '#')) as calle, sum(co.precio) as total from coches as co, clientes as cl, ventas as v 
 where co.id_coche=v.id_coche and cl.id_cliente=v.id_cliente
-group by direccion;
+group by calle;
 /**
-┌────────────────┬─────────┐
-│   direccion    │  total  │
-├────────────────┼─────────┤
-│ Avenida B #456 │ 22000.0 │
-│ Avenida D #101 │ 28000.0 │
-│ Avenida F #567 │ 20000.0 │
-│ Avenida H #111 │ 35000.0 │
-│ Avenida J #333 │ 40000.0 │
-│ Calle A #123   │ 25000.0 │
-│ Calle C #789   │ 30000.0 │
-│ Calle E #234   │ 32000.0 │
-│ Calle G #890   │ 27000.0 │
-└────────────────┴─────────┘
+┌────────────┬─────────┐
+│   calle    │  total  │
+├────────────┼─────────┤
+│ Avenida B  │ 22000.0 │
+│ Avenida D  │ 28000.0 │
+│ Avenida F  │ 20000.0 │
+│ Avenida H  │ 35000.0 │
+│ Avenida J  │ 40000.0 │
+│ Calle A    │ 25000.0 │
+│ Calle C    │ 30000.0 │
+│ Calle E    │ 32000.0 │
+│ Calle G    │ 27000.0 │
+└────────────┴─────────┘
 **/
 --Consulta para obtener el nombre y la dirección de los clientes que han comprado coches de más de 30000 euros y llevado a reparar sus coches en 2024.
-select cl.nombre, cl.direccion from clientes as cl, ventas as v, coches as co 
-where co.id_coche=v.id_coche and cl.id_cliente=v.id_cliente
-and co.precio>30000;
+select cl.nombre, cl.direccion from clientes as cl, ventas as v, coches as co, reparacion as r 
+where co.id_coche=v.id_coche and cl.id_cliente=v.id_cliente and co.id_coche=r.id_coche and cl.id_cliente=r.id_cliente 
+and co.precio>30000 and r.fecha_reparación regexp '^2024';
 /**
-┌─────────────────┬────────────────┐
-│     nombre      │   direccion    │
-├─────────────────┼────────────────┤
-│ Pedro Rodríguez │ Calle E #234   │
-│ Isabel Díaz     │ Avenida H #111 │
-│ Elena Torres    │ Avenida J #333 │
-└─────────────────┴────────────────┘
+┌──────────────┬────────────────┐
+│    nombre    │   direccion    │
+├──────────────┼────────────────┤
+│ Elena Torres │ Avenida J #333 │
+└──────────────┴────────────────┘
 **/
 
 -- Consulta para calcular el precio medio de los coches vendidos en 2023 y llevados a reparar por clientes menores de 30 años.
-select avg(select co.precio from coches as co, clientes as cl, ventas as v, reparacion as r 
-where co.id_coche=r.id_coche and co.id_coche=v.id_coche and cl.id_cliente=r.id_cliente and cl.id_cliente=v.id_cliente
-and cl.edad<30) as medio from coches;
+select avg(co.precio) from coches as co, clientes as cl, ventas as v, reparacion as r 
+where co.id_coche=v.id_coche and co.id_coche=r.id_coche and cl.id_cliente=v.id_cliente and cl.id_cliente=r.id_cliente
+and cl.edad<30 and fecha_venta regexp '^2023';
+/**
+┌────────────────┐
+│ avg(co.precio) │
+├────────────────┤
+│ 31000.0        │
+└────────────────┘
+**/
 
 -- Consulta para obtener el modelo y el año de los coches vendidos por clientes que tienen una dirección que contiene la palabra "Avenida".
 select co.modelo, co.año from coches as co, clientes as cl, ventas as v 
