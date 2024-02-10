@@ -17,7 +17,7 @@ select c.FirstName, c.LastName, i.InvoiceId, i.InvoiceDate, i.BillingCountry fro
 join customers as c on c.CustomerId=i.CustomerId
 where c.Country='Brazil';
     /**
-    ┌───────────┬───────────┬───────────┬─────────────────────┬────────────────┐
+┌───────────┬───────────┬───────────┬─────────────────────┬────────────────┐
 │ FirstName │ LastName  │ InvoiceId │     InvoiceDate     │ BillingCountry │
 ├───────────┼───────────┼───────────┼─────────────────────┼────────────────┤
 │ Luís      │ Gonçalves │ 98        │ 2010-03-11 00:00:00 │ Brazil         │
@@ -105,7 +105,7 @@ select distinct(BillingCountry) from invoices;
     --Proporciona una consulta que muestre las facturas de clientes que son de Brasil.
 select i.* from invoices as i 
 join customers as c on c.CustomerId=i.CustomerId
-where Country='Brazil';
+where c.Country='Brazil';
 /**
 ┌───────────┬────────────┬─────────────────────┬─────────────────────────────────┬─────────────────────┬──────────────┬────────────────┬───────────────────┬───────┐
 │ InvoiceId │ CustomerId │     InvoiceDate     │         BillingAddress          │     BillingCity     │ BillingState │ BillingCountry │ BillingPostalCode │ Total │
@@ -158,26 +158,26 @@ where e.Title='Sales Manager';
 sqlite> 
 **/
     --Proporciona una consulta que muestre el Total de la Factura, nombre del cliente, país y nombre del Agente de Ventas para todas las facturas y clientes.
-select i.Total, c.LastName, c.FirstName, c.FirstName, c.Country from invoices as i 
+select i.Total, c.LastName, c.FirstName, e.FirstName, c.Country from invoices as i 
 join customers as c, employees as e on i.CustomerId=c.CustomerId and c.SupportRepId=e.EmployeeId
 where e.Title='Sales Manager';
 /**
-select i.Total, c.LastName, c.FirstName, c.FirstName, c.Country from invoices as i 
+select i.Total, c.LastName, c.FirstName, e.FirstName, c.Country from invoices as i 
 join customers as c, employees as e on i.CustomerId=c.CustomerId and c.SupportRepId=e.EmployeeId
 where e.Title='Sales Manager';
 **/
 
     --¿Cuántas facturas hubo en 2009 y 2011? ¿Cuáles son las ventas totales respectivas para cada uno de esos años?
-select count(*) as total, substr(InvoiceDate, 0, 5) as year from invoices
+select count(*) as numero, sum(Total) as Total, substr(InvoiceDate, 0, 5) as year from invoices
 group by year
 having year regexp '^2009|2011';
 /**
-┌───────┬──────┐
-│ total │ year │
-├───────┼──────┤
-│ 83    │ 2009 │
-│ 83    │ 2011 │
-└───────┴──────┘
+┌────────┬────────┬──────┐
+│ numero │ Total  │ year │
+├────────┼────────┼──────┤
+│ 83     │ 449.46 │ 2009 │
+│ 83     │ 469.58 │ 2011 │
+└────────┴────────┴──────┘
 **/
 
     --Mirando la tabla de InvoiceLine, proporciona una consulta que CUENTE el número de ítems de línea para el ID de factura 37.
@@ -219,7 +219,6 @@ limit 15;
 **/
 
     --Proporciona una consulta que incluya el nombre de la pista con cada ítem de línea de factura.
-PRAGMA foreign_key_list('invoice_items');
 select t.Name, ii.InvoiceLineId from tracks as t 
 join invoice_items as ii on ii.TrackId=t.TrackId limit 15;
 /**
@@ -244,36 +243,55 @@ join invoice_items as ii on ii.TrackId=t.TrackId limit 15;
 └─────────────────────────────────────────┴───────────────┘
 **/
     --Proporciona una consulta que incluya el nombre de la pista comprada Y el nombre del artista con cada ítem de línea de factura.
-select t.Name, a.Name, ii.InvoiceLineId from tracks as t 
-join invoice_items as ii, albums as al, artists as a 
-on ii.TrackId=t.Name and t.AlbumId=al.AlbumId and al.ArtistId=a.ArtistId
+select t.Name as nombre_pista, a.Name as nombre_artista, ii.InvoiceLineId from tracks as t, artists as a 
+join invoice_items as ii, albums as al on ii.TrackId=t.TrackId and t.AlbumId=al.AlbumId and al.ArtistId=a.ArtistId
 limit 15;
-
+/**
+┌─────────────────────────────────────────┬────────────────┬───────────────┐
+│              nombre_pista               │ nombre_artista │ InvoiceLineId │
+├─────────────────────────────────────────┼────────────────┼───────────────┤
+│ For Those About To Rock (We Salute You) │ AC/DC          │ 579           │
+│ Balls to the Wall                       │ Accept         │ 1             │
+│ Balls to the Wall                       │ Accept         │ 1154          │
+│ Fast As a Shark                         │ Accept         │ 1728          │
+│ Restless and Wild                       │ Accept         │ 2             │
+│ Princess of the Dawn                    │ Accept         │ 580           │
+│ Put The Finger On You                   │ AC/DC          │ 3             │
+│ Inject The Venom                        │ AC/DC          │ 4             │
+│ Inject The Venom                        │ AC/DC          │ 1155          │
+│ Snowballed                              │ AC/DC          │ 581           │
+│ Snowballed                              │ AC/DC          │ 1729          │
+│ Evil Walks                              │ AC/DC          │ 5             │
+│ Breaking The Rules                      │ AC/DC          │ 6             │
+│ Night Of The Long Knives                │ AC/DC          │ 582           │
+│ Spellbound                              │ AC/DC          │ 1156          │
+└─────────────────────────────────────────┴────────────────┴───────────────┘
+**/
 
     --Proporciona una consulta que muestre el número total de pistas en cada lista de reproducción. El nombre de la lista de reproducción debe estar incluido en la tabla resultante.
-select count(pt.TrackId) as pistas, p.Name from playlist_track as pt
+select count(pt.TrackId) as pistas, p.Name as playlist from playlist_track as pt
 join playlists as p on p.PlaylistId=pt.PlaylistId 
 group by TrackId limit 15;
 /**
-┌────────┬───────┐
-│ pistas │ Name  │
-├────────┼───────┤
-│ 3      │ Music │
-│ 3      │ Music │
-│ 4      │ Music │
-│ 4      │ Music │
-│ 4      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-│ 2      │ Music │
-└────────┴───────┘
+┌────────┬──────────┐
+│ pistas │ playlist │
+├────────┼──────────┤
+│ 3      │ Music    │
+│ 3      │ Music    │
+│ 4      │ Music    │
+│ 4      │ Music    │
+│ 4      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+│ 2      │ Music    │
+└────────┴──────────┘
 **/
 
     --Proporciona una consulta que muestre todas las pistas, pero no muestre IDs. La tabla resultante debe incluir el nombre del álbum, el tipo de medio y el género.
@@ -304,73 +322,133 @@ and mt.MediaTypeId=t.MediaTypeId limit 15;
 
     --Proporciona una consulta que muestre todas las facturas.
 
-    --Proporciona una consulta que muestre las ventas totales realizadas por cada agente de ventas.
-
-
-    --¿Qué agente de ventas realizó más ventas en 2009?
-
-    --Escribir una consulta que muestre todas las playlists de la base de datos.
-
-    --Escribe una consulta que liste todas las canciones de una playlist. 
-select t.Name from tracks as t 
-join playlist_track as pl on t.TrackId=pl.TrackId
+select * from invoices
 limit 15;
 /**
-┌─────────────────────────────────────────┐
-│                  Name                   │
-├─────────────────────────────────────────┤
-│ For Those About To Rock (We Salute You) │
-│ For Those About To Rock (We Salute You) │
-│ For Those About To Rock (We Salute You) │
-│ Balls to the Wall                       │
-│ Balls to the Wall                       │
-│ Balls to the Wall                       │
-│ Fast As a Shark                         │
-│ Fast As a Shark                         │
-│ Fast As a Shark                         │
-│ Fast As a Shark                         │
-│ Restless and Wild                       │
-│ Restless and Wild                       │
-│ Restless and Wild                       │
-│ Restless and Wild                       │
-│ Princess of the Dawn                    │
-└─────────────────────────────────────────┘
+┌───────────┬────────────┬─────────────────────┬───────────────────────────┬───────────────┬──────────────┬────────────────┬───────────────────┬───────┐
+│ InvoiceId │ CustomerId │     InvoiceDate     │      BillingAddress       │  BillingCity  │ BillingState │ BillingCountry │ BillingPostalCode │ Total │
+├───────────┼────────────┼─────────────────────┼───────────────────────────┼───────────────┼──────────────┼────────────────┼───────────────────┼───────┤
+│ 1         │ 2          │ 2009-01-01 00:00:00 │ Theodor-Heuss-Straße 34   │ Stuttgart     │              │ Germany        │ 70174             │ 1.98  │
+│ 2         │ 4          │ 2009-01-02 00:00:00 │ Ullevålsveien 14          │ Oslo          │              │ Norway         │ 0171              │ 3.96  │
+│ 3         │ 8          │ 2009-01-03 00:00:00 │ Grétrystraat 63           │ Brussels      │              │ Belgium        │ 1000              │ 5.94  │
+│ 4         │ 14         │ 2009-01-06 00:00:00 │ 8210 111 ST NW            │ Edmonton      │ AB           │ Canada         │ T6G 2C7           │ 8.91  │
+│ 5         │ 23         │ 2009-01-11 00:00:00 │ 69 Salem Street           │ Boston        │ MA           │ USA            │ 2113              │ 13.86 │
+│ 6         │ 37         │ 2009-01-19 00:00:00 │ Berger Straße 10          │ Frankfurt     │              │ Germany        │ 60316             │ 0.99  │
+│ 7         │ 38         │ 2009-02-01 00:00:00 │ Barbarossastraße 19       │ Berlin        │              │ Germany        │ 10779             │ 1.98  │
+│ 8         │ 40         │ 2009-02-01 00:00:00 │ 8, Rue Hanovre            │ Paris         │              │ France         │ 75002             │ 1.98  │
+│ 9         │ 42         │ 2009-02-02 00:00:00 │ 9, Place Louis Barthou    │ Bordeaux      │              │ France         │ 33000             │ 3.96  │
+│ 10        │ 46         │ 2009-02-03 00:00:00 │ 3 Chatham Street          │ Dublin        │ Dublin       │ Ireland        │                   │ 5.94  │
+│ 11        │ 52         │ 2009-02-06 00:00:00 │ 202 Hoxton Street         │ London        │              │ United Kingdom │ N1 5LH            │ 8.91  │
+│ 12        │ 2          │ 2009-02-11 00:00:00 │ Theodor-Heuss-Straße 34   │ Stuttgart     │              │ Germany        │ 70174             │ 13.86 │
+│ 13        │ 16         │ 2009-02-19 00:00:00 │ 1600 Amphitheatre Parkway │ Mountain View │ CA           │ USA            │ 94043-1351        │ 0.99  │
+│ 14        │ 17         │ 2009-03-04 00:00:00 │ 1 Microsoft Way           │ Redmond       │ WA           │ USA            │ 98052-8300        │ 1.98  │
+│ 15        │ 19         │ 2009-03-04 00:00:00 │ 1 Infinite Loop           │ Cupertino     │ CA           │ USA            │ 95014             │ 1.98  │
+└───────────┴────────────┴─────────────────────┴───────────────────────────┴───────────────┴──────────────┴────────────────┴───────────────────┴───────┘
+**/
+    --Proporciona una consulta que muestre las ventas totales realizadas por cada agente de ventas.
+select count(i.InvoiceId) as total from invoices as i 
+join customers as c, employees as e on i.CustomerId=c.CustomerId and c.SupportRepId=e.EmployeeId
+where e.Title='Sales Manager';
+/**
+┌───────┐
+│ total │
+├───────┤
+│ 0     │
+└───────┘
+**/
+
+    --¿Qué agente de ventas realizó más ventas en 2009?
+select count(i.InvoiceId) as total, e.EmployeeId from invoices as i 
+join customers as c, employees as e on i.CustomerId=c.CustomerId and c.SupportRepId=e.EmployeeId
+where e.Title='Sales Manager'
+group by e.EmployeeId
+having i.InvoiceDate regexp '^2009'
+order by total desc;
+/**
+sqlite> select count(i.InvoiceId) as total, e.EmployeeId from invoices as i 
+   ...> join customers as c, employees as e on i.CustomerId=c.CustomerId and c.SupportRepId=e.EmployeeId
+   ...> where e.Title='Sales Manager'
+   ...> group by e.EmployeeId
+   ...> having i.InvoiceDate regexp '^2009'
+   ...> order by total desc;
+sqlite> 
+**/
+
+    --Escribir una consulta que muestre todas las playlists de la base de datos.
+select * from playlists
+limit 15;
+/**
+┌────────────┬────────────────────────────┐
+│ PlaylistId │            Name            │
+├────────────┼────────────────────────────┤
+│ 1          │ Music                      │
+│ 2          │ Movies                     │
+│ 3          │ TV Shows                   │
+│ 4          │ Audiobooks                 │
+│ 5          │ 90’s Music                 │
+│ 6          │ Audiobooks                 │
+│ 7          │ Movies                     │
+│ 8          │ Music                      │
+│ 9          │ Music Videos               │
+│ 10         │ TV Shows                   │
+│ 11         │ Brazilian Music            │
+│ 12         │ Classical                  │
+│ 13         │ Classical 101 - Deep Cuts  │
+│ 14         │ Classical 101 - Next Steps │
+│ 15         │ Classical 101 - The Basics │
+└────────────┴────────────────────────────┘
+**/
+    --Escribe una consulta que liste todas las canciones de una playlist. 
+select t.Name as cancion, p.Name as playlist from tracks as t 
+join playlist_track as pl, playlists as p on t.TrackId=pl.TrackId and p.PlaylistId=pl.PlaylistId
+limit 15;
+/**
+┌─────────────────────────────────────────┬─────────────────────┐
+│                 cancion                 │      playlist       │
+├─────────────────────────────────────────┼─────────────────────┤
+│ For Those About To Rock (We Salute You) │ Music               │
+│ For Those About To Rock (We Salute You) │ Music               │
+│ For Those About To Rock (We Salute You) │ Heavy Metal Classic │
+│ Balls to the Wall                       │ Music               │
+│ Balls to the Wall                       │ Music               │
+│ Balls to the Wall                       │ Heavy Metal Classic │
+│ Fast As a Shark                         │ Music               │
+│ Fast As a Shark                         │ 90’s Music          │
+│ Fast As a Shark                         │ Music               │
+│ Fast As a Shark                         │ Heavy Metal Classic │
+│ Restless and Wild                       │ Music               │
+│ Restless and Wild                       │ 90’s Music          │
+│ Restless and Wild                       │ Music               │
+│ Restless and Wild                       │ Heavy Metal Classic │
+│ Princess of the Dawn                    │ Music               │
+└─────────────────────────────────────────┴─────────────────────┘
 **/
     --Escribe una consulta que liste exclusivamente el nombre de las canciones de una playlist concreta, con el nombre de su género y el nombre de tipo de medio.
 
-select t.Name, al.Title, g.Name, mt.Name from tracks as t 
+select t.Name as cancion, g.Name as genero, mt.Name as tipo_medio from tracks as t 
 join albums as al, genres as g, media_types as mt, playlist_track as pt on t.AlbumId=al.AlbumId and g.GenreId=t.GenreId
 and mt.MediaTypeId=t.MediaTypeId and t.TrackId=pt.TrackId
-where PlaylistId='15';
+where PlaylistId=16;
 /**
-┌────────────────────────────────────────────────────────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────┬───────────┬──────────────────────────┐
-│                                                Name                                                │                                     Title                                     │   Name    │           Name           │
-├────────────────────────────────────────────────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────┼───────────┼──────────────────────────┤
-│ Intoitus: Adorate Deum                                                                             │ Adorate Deum: Gregorian Chant from the Proper of the Mass                     │ Classical │ Protected AAC audio file │
-│ Miserere mei, Deus                                                                                 │ Allegri: Miserere                                                             │ Classical │ Protected AAC audio file │
-│ Canon and Gigue in D Major: I. Canon                                                               │ Pachelbel: Canon & Gigue                                                      │ Classical │ Protected AAC audio file │
-│ Concerto No. 1 in E Major, RV 269 "Spring": I. Allegro                                             │ Vivaldi: The Four Seasons                                                     │ Classical │ Protected AAC audio file │
-│ Concerto for 2 Violins in D Minor, BWV 1043: I. Vivace                                             │ Bach: Violin Concertos                                                        │ Classical │ Protected AAC audio file │
-│ Aria Mit 30 Veränderungen, BWV 988 "Goldberg Variations": Aria                                     │ Bach: Goldberg Variations                                                     │ Classical │ Protected AAC audio file │
-│ Suite for Solo Cello No. 1 in G Major, BWV 1007: I. Prélude                                        │ Bach: The Cello Suites                                                        │ Classical │ Protected AAC audio file │
-│ The Messiah: Behold, I Tell You a Mystery... The Trumpet Shall Sound                               │ Handel: The Messiah (Highlights)                                              │ Classical │ Protected AAC audio file │
-│ Solomon HWV 67: The Arrival of the Queen of Sheba                                                  │ The World of Classical Favourites                                             │ Classical │ Protected AAC audio file │
-│ "Eine Kleine Nachtmusik" Serenade In G, K. 525: I. Allegro                                         │ Sir Neville Marriner: A Celebration                                           │ Classical │ Protected AAC audio file │
-│ Concerto for Clarinet in A Major, K. 622: II. Adagio                                               │ Mozart: Wind Concertos                                                        │ Classical │ Protected AAC audio file │
-│ Symphony No. 104 in D Major "London": IV. Finale: Spiritoso                                        │ Haydn: Symphonies 99 - 104                                                    │ Classical │ Purchased AAC audio file │
-│ Symphony No.5 in C Minor: I. Allegro con brio                                                      │ Beethoven: Symhonies Nos. 5 & 6                                               │ Classical │ Protected AAC audio file │
-│ Ave Maria                                                                                          │ A Soprano Inspired                                                            │ Classical │ Protected AAC audio file │
-│ Nabucco: Chorus, "Va, Pensiero, Sull'ali Dorate"                                                   │ Great Opera Choruses                                                          │ Classical │ Protected AAC audio file │
-│ Die Walküre: The Ride of the Valkyries                                                             │ Wagner: Favourite Overtures                                                   │ Classical │ Protected AAC audio file │
-│ Requiem, Op.48: 4. Pie Jesu                                                                        │ Fauré: Requiem, Ravel: Pavane & Others                                        │ Classical │ Protected AAC audio file │
-│ The Nutcracker, Op. 71a, Act II: Scene 14: Pas de deux: Dance of the Prince & the Sugar-Plum Fairy │ Tchaikovsky: The Nutcracker                                                   │ Classical │ Protected AAC audio file │
-│ Nimrod (Adagio) from Variations On an Original Theme, Op. 36 "Enigma"                              │ The Last Night of the Proms                                                   │ Classical │ Protected AAC audio file │
-│ Madama Butterfly: Un Bel Dì Vedremo                                                                │ Puccini: Madama Butterfly - Highlights                                        │ Classical │ Protected AAC audio file │
-│ Jupiter, the Bringer of Jollity                                                                    │ Holst: The Planets, Op. 32 & Vaughan Williams: Fantasies                      │ Classical │ Protected AAC audio file │
-│ Turandot, Act III, Nessun dorma!                                                                   │ Pavarotti's Opera Made Easy                                                   │ Classical │ Protected AAC audio file │
-│ Adagio for Strings from the String Quartet, Op. 11                                                 │ Great Performances - Barber's Adagio and Other Romantic Favorites for Strings │ Classical │ Protected AAC audio file │
-│ Carmina Burana: O Fortuna                                                                          │ Carmina Burana                                                                │ Classical │ Protected AAC audio file │
-│ Fanfare for the Common Man                                                                         │ A Copland Celebration, Vol. I                                                 │ Classical │ Protected AAC audio file │
-└────────────────────────────────────────────────────────────────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────┴───────────┴──────────────────────────┘
+┌─────────────────────────┬─────────────┬──────────────────────────┐
+│         cancion         │   genero    │        tipo_medio        │
+├─────────────────────────┼─────────────┼──────────────────────────┤
+│ Man In The Box          │ Rock        │ MPEG audio file          │
+│ Smells Like Teen Spirit │ Rock        │ MPEG audio file          │
+│ In Bloom                │ Rock        │ MPEG audio file          │
+│ Come As You Are         │ Rock        │ MPEG audio file          │
+│ Lithium                 │ Rock        │ MPEG audio file          │
+│ Drain You               │ Rock        │ MPEG audio file          │
+│ On A Plain              │ Rock        │ MPEG audio file          │
+│ Evenflow                │ Rock        │ MPEG audio file          │
+│ Alive                   │ Rock        │ MPEG audio file          │
+│ Jeremy                  │ Rock        │ MPEG audio file          │
+│ Daughter                │ Rock        │ MPEG audio file          │
+│ Outshined               │ Rock        │ MPEG audio file          │
+│ Black Hole Sun          │ Rock        │ MPEG audio file          │
+│ Plush                   │ Rock        │ MPEG audio file          │
+│ Hunger Strike           │ Alternative │ Protected AAC audio file │
+└─────────────────────────┴─────────────┴──────────────────────────┘
+
 **/
 
