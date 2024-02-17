@@ -16,7 +16,8 @@ pragma table_info(cliente);
 │ 11  │ codigo_postal              │ TEXT    │ 0       │            │ 0  │
 │ 12  │ codigo_empleado_rep_ventas │ INTEGER │ 0       │            │ 0  │
 │ 13  │ limite_credito             │ NUMERIC │ 0       │            │ 0  │
-└─────┴────────────────────────────┴─────────┴─────────┴────────────┴────┘sqlite> pragma table_info(empleado);
+└─────┴────────────────────────────┴─────────┴─────────┴────────────┴────┘
+sqlite> pragma table_info(empleado);
 ┌─────┬─────────────────┬─────────┬─────────┬────────────┬────┐
 │ cid │      name       │  type   │ notnull │ dflt_value │ pk │
 ├─────┼─────────────────┼─────────┼─────────┼────────────┼────┤
