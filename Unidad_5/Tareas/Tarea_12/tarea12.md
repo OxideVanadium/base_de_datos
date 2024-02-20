@@ -524,17 +524,45 @@ select c.id, c.nombre, c.apellido1, c.apellido2, max(p.total)s
 ```
 
     Devuelve cuál ha sido el pedido de máximo valor que se ha realizado cada año.
+```sql
+select max(total) from pedido
+group by strftime('%Y', fecha) ;
+```
 
     Devuelve el número total de pedidos que se han realizado cada año.
+```sql
+select count(*) from pedido
+group by strftime('%Y', fecha) ;
+```
 
 Subconsultas
 Con operadores básicos de comparación
 
     Devuelve un listado con todos los pedidos que ha realizado Adela Salas Díaz. (Sin utilizar INNER JOIN).
+```sql
+select * from pedido
+where id_cliente=(
+select I'd from cliente
+where hombre='Adela' and apellido1='Salas'
+and apellido2='Díaz');
+```
 
     Devuelve el número de pedidos en los que ha participado el comercial Daniel Sáez Vega. (Sin utilizar INNER JOIN)
+```sql
+select * from pedido
+where id_comeracial=(
+select id from comercial
+where hombre='Daniel' and apellido1='Sáez' and apellido2='Vega') ;
+```
 
     Devuelve los datos del cliente que realizó el pedido más caro en el año 2019. (Sin utilizar INNER JOIN)
+```sql
+select * from cliente
+where id=(
+select id_cliente from pedido
+where strftime('%Y', fecha)='2019'
+order by total limit 1) ;
+```
 
     Devuelve la fecha y la cantidad del pedido de menor valor realizado por el cliente Pepe Ruiz Santana.
 
