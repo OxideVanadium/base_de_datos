@@ -344,7 +344,7 @@ on c.id=p.id_cliente and p.id_comeracial=co.id;
 select c.* from cliente as c
 join pedido as p on c.id=p.id_cliente 
 where p.total between 300 and 1000
-and strftime('%Y', p.fecha);
+and strftime('%Y', p.fecha)='2017';
 /**
 ┌────┬────────┬───────────┬───────────┬─────────┬───────────┐
 │ id │ nombre │ apellido1 │ apellido2 │ ciudad  │ categotia │
