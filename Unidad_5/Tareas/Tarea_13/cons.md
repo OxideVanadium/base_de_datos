@@ -215,14 +215,42 @@ sqlite>
 
 * Devuelve un listado con los departamentos que no tienen profesores asociados.
 ```sql
-select d.* from departamento as d, profesor as p
-where d.id=p.id_departamento and p.id_profesor is null;
+select * from departamento
+where id not in(select d.id from departamento as d, profesor as p
+where d.id=p.id_departamento);
+┌────┬─────────────────────┐
+│ id │       nombre        │
+├────┼─────────────────────┤
+│ 7  │ Filología           │
+│ 8  │ Derecho             │
+│ 9  │ Biología y Geología │
+└────┴─────────────────────┘
+
 sqlite> 
 ```
 
 * Devuelve un listado con los profesores que no imparten ninguna asignatura.
 ```sql
-
+select * from persona
+where not exists(
+    select id_profesor from asignatura
+    where asignatura.id_profesor=persona.id
+)
+and tipo='profesor';
+┌────┬───────────┬───────────┬────────────┬────────────┬─────────┬───────────────────────────┬───────────┬──────────────────┬──────┬──────────┐
+│ id │    nif    │  nombre   │ apellido1  │ apellido2  │ ciudad  │         direccion         │ telefono  │ fecha_nacimiento │ sexo │   tipo   │
+├────┼───────────┼───────────┼────────────┼────────────┼─────────┼───────────────────────────┼───────────┼──────────────────┼──────┼──────────┤
+│ 5  │ 38223286T │ David     │ Schmidt    │ Fisher     │ Almería │ C/ Venus                  │ 678516294 │ 1978/01/19       │ H    │ profesor │
+│ 8  │ 79503962T │ Cristina  │ Lemke      │ Rutherford │ Almería │ C/ Saturno                │ 669162534 │ 1977/08/21       │ M    │ profesor │
+│ 10 │ 61142000L │ Esther    │ Spencer    │ Lakin      │ Almería │ C/ Plutón                 │           │ 1977/05/19       │ M    │ profesor │
+│ 12 │ 85366986W │ Carmen    │ Streich    │ Hirthe     │ Almería │ C/ Almanzora              │           │ 1971-04-29       │ M    │ profesor │
+│ 13 │ 73571384L │ Alfredo   │ Stiedemann │ Morissette │ Almería │ C/ Guadalquivir           │ 950896725 │ 1980/02/01       │ H    │ profesor │
+│ 15 │ 80502866Z │ Alejandro │ Kohler     │ Schoen     │ Almería │ C/ Tajo                   │ 668726354 │ 1980/03/14       │ H    │ profesor │
+│ 16 │ 10485008K │ Antonio   │ Fahey      │ Considine  │ Almería │ C/ Sierra de los Filabres │           │ 1982/03/18       │ H    │ profesor │
+│ 17 │ 85869555K │ Guillermo │ Ruecker    │ Upton      │ Almería │ C/ Sierra de Gádor        │           │ 1973/05/05       │ H    │ profesor │
+│ 18 │ 04326833G │ Micaela   │ Monahan    │ Murray     │ Almería │ C/ Veleta                 │ 662765413 │ 1976/02/25       │ H    │ profesor │
+│ 20 │ 79221403L │ Francesca │ Schowalter │ Muller     │ Almería │ C/ Quinto pino            │           │ 1980/10/31       │ H    │ profesor │
+└────┴───────────┴───────────┴────────────┴────────────┴─────────┴───────────────────────────┴───────────┴──────────────────┴──────┴──────────┘
 ```
 
 * Devuelve un listado con las asignaturas que no tienen un profesor asignado.
@@ -413,22 +441,27 @@ where tipo='alumno' and id=(
 
 * Devuelve un listado con los profesores que no están asociados a un departamento.
 ```sql
-select * from persona 
-where tipo='profesor' and id in(
+select * from persona
+where id not in(
     select id_profesor from profesor
-    where id_departamento is null
-);
-sqlite> 
+)
+and tipo='profesor';
 ```
 
 * Devuelve un listado con los departamentos que no tienen profesores asociados.
 ```sql
 select * from departamento
-where id in(
+where not exists(
     select id_departamento from profesor
-    where id_profesor is null
-    );
-sqlite> 
+    where departamento.id=profesor.id_departamento
+);
+┌────┬─────────────────────┐
+│ id │       nombre        │
+├────┼─────────────────────┤
+│ 7  │ Filología           │
+│ 8  │ Derecho             │
+│ 9  │ Biología y Geología │
+└────┴─────────────────────┘
 ```
 
 * Devuelve un listado con los profesores que tienen un departamento asociado y que no imparten ninguna asignatura.
