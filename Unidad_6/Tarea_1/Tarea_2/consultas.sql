@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS ordenes (
     FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
     FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
-
 -- Insertar 20 registros de ejemplo en la tabla de órdenes
 INSERT INTO ordenes (id_cliente, id_producto, cantidad) VALUES
     (1, 1, 2),
@@ -425,8 +424,9 @@ join productos as p on p.id_producto=o.id_producto;
 | Producto 20 | Cliente 20 |
 +-------------+------------+
 Mostrar todas las órdenes con sus clientes y productos, incluso si no hay órdenes **/
-select o.*, c.* from ordenes as o 
-join clientes as c on c.id_cliente=o.id_cliente;
+select o.*, c.*, p.* from ordenes as o
+left join clientes as c on c.id_cliente=o.id_cliente
+left join productos as p on p.id_producto=o.id_producto;
 /**
 
 Obtener el nombre de los clientes junto con el número total de órdenes que han realizado **/
@@ -488,9 +488,9 @@ join clientes as c on c.id_cliente=o.id_cliente;
 |       20 |         20 |          20 |        2 | Cliente 20 | Producto 20 |
 +----------+------------+-------------+----------+------------+-------------+
 Mostrar todas las órdenes con sus productos y clientes, incluso si no hay información de cliente. **/
-select o.*, c.* from clientes as c  
-right join ordenes as o on o.id_cliente=c.id_cliente
-left join productos as p on p.id_producto=o.id_producto;
+select o.*, p.*, c.* from ordenes as o 
+left join clientes as c on c.id_cliente=o.id_cliente
+join productos as p on p.id_producto=o.id_producto;
 
 /**
 +----------+------------+-------------+----------+-------------+-------------+--------+------------+------------+---------------+
@@ -520,7 +520,7 @@ left join productos as p on p.id_producto=o.id_producto;
 Obtener el nombre de los productos junto con el nombre de los clientes que han realizado órdenes de esos productos, incluyendo los productos que no han sido ordenados **/
 select p.nombre, c.nombre from clientes as c 
 join ordenes as o on o.id_cliente=c.id_cliente
-left join productos as p on p.id_producto=o.id_producto;
+right join productos as p on p.id_producto=o.id_producto;
 /**
 +-------------+------------+
 | nombre      | nombre     |
@@ -548,7 +548,7 @@ left join productos as p on p.id_producto=o.id_producto;
 +-------------+------------+
 Mostrar todas las órdenes junto con el nombre del cliente y el nombre del producto, incluyendo las órdenes sin productos **/
 select o.*, c.nombre, p.nombre from productos as p 
-left join ordenes as o on o.id_producto=p.id_producto
+right join ordenes as o on o.id_producto=p.id_producto
 join clientes as c on o.id_cliente=c.id_cliente;
 /**
 +----------+------------+-------------+----------+------------+-------------+
@@ -577,7 +577,7 @@ join clientes as c on o.id_cliente=c.id_cliente;
 +----------+------------+-------------+----------+------------+-------------+
 Obtener el nombre de los clientes junto con el número total de órdenes que han realizado, incluyendo los clientes que no han realizado órdenes. **/
 select c.nombre, count(o.id_orden) as numero from ordenes as o 
-left join clientes as c on c.id_cliente=o.id_cliente
+right join clientes as c on c.id_cliente=o.id_cliente
 group by c.id_cliente;
 /**
 +------------+--------+
@@ -605,9 +605,9 @@ group by c.id_cliente;
 | Cliente 20 |      1 |
 +------------+--------+
 Mostrar todas las órdenes con sus clientes y productos, incluyendo las órdenes y productos que no tienen información. **/
-select o.*, c.*, p.* from clientes as c 
-left join ordenes as o on o.id_cliente=c.id_cliente
-left join productos as p on p.id_producto=o.id_producto;
+select o.*, c.*, p.* from ordenes as o 
+left join productos as p on p.id_producto=o.id_producto
+left join clientes as c on c.id_cliente=o.id_cliente;
 /**
 +----------+------------+-------------+----------+------------+------------+---------------+-------------+-------------+--------+
 | id_orden | id_cliente | id_producto | cantidad | id_cliente | nombre     | direccion     | id_producto | nombre      | precio |
