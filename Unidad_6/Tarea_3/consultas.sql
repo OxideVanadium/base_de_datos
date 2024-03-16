@@ -129,8 +129,14 @@ select * from clientes
 where nombre_cliente regexp '^A';
 /**
 Mostrar las órdenes que contienen más de 2 productos. **/
-
+select * from detalles_ordenes 
+where cantidad>2;
 /**
++------------+----------+-------------+----------+
+| id_detalle | id_orden | id_producto | cantidad |
++------------+----------+-------------+----------+
+|          3 |        3 |           3 |        3 |
++------------+----------+-------------+----------+
 Mostrar los productos ordenados por precio de forma descendente. **/
 select * from productos 
 order by precio_producto desc;
@@ -210,8 +216,18 @@ join clientes as c on c.id_cliente=o.id_cliente;
 | Producto C      | Pedro          |
 +-----------------+----------------+
 Mostrar todas las órdenes con sus clientes y productos, incluso si no hay órdenes. **/
-
+select c.*, o.*, p.* from clientes as c 
+left join ordenes as o on o.id_cliente=c.id_cliente
+join detalles_ordenes as do on do.id_orden=o.id_orden
+join productos as p on p.id_producto=do.id_producto;
 /**
++------------+----------------+----------------+----------+------------+-------------+-------------+-----------------+-----------------+
+| id_cliente | nombre_cliente | ciudad_cliente | id_orden | id_cliente | fecha_orden | id_producto | nombre_producto | precio_producto |
++------------+----------------+----------------+----------+------------+-------------+-------------+-----------------+-----------------+
+|          1 | Juan           | Ciudad A       |        1 |          1 | 2024-03-01  |           1 | Producto A      |           50.00 |
+|          2 | Mar├нa         | Ciudad B       |        2 |          2 | 2024-03-02  |           2 | Producto B      |           75.00 |
+|          3 | Pedro          | Ciudad C       |        3 |          3 | 2024-03-03  |           3 | Producto C      |          100.00 |
++------------+----------------+----------------+----------+------------+-------------+-------------+-----------------+-----------------+
 Obtener el nombre de los clientes junto con el número total de órdenes que han realizado. **/
 select c.nombre_cliente, count(o.id_orden) as num from clientes as c 
 left join ordenes as o on o.id_cliente=c.id_cliente
@@ -289,8 +305,18 @@ group by c.id_cliente;
 | Pedro          |   1 |
 +----------------+-----+
 Mostrar todas las órdenes con sus clientes y productos, incluyendo las órdenes y productos que no tienen información. **/
-
+select o.*, c.*, p.* from clientes as c 
+right join ordenes as o on o.id_cliente=c.id_cliente
+join detalles_ordenes as do on do.id_orden=o.id_orden
+right join productos as p on p.id_producto=do.id_producto;
 /**
++----------+------------+-------------+------------+----------------+----------------+-------------+-----------------+-----------------+
+| id_orden | id_cliente | fecha_orden | id_cliente | nombre_cliente | ciudad_cliente | id_producto | nombre_producto | precio_producto |
++----------+------------+-------------+------------+----------------+----------------+-------------+-----------------+-----------------+
+|        1 |          1 | 2024-03-01  |          1 | Juan           | Ciudad A       |           1 | Producto A      |           50.00 |
+|        2 |          2 | 2024-03-02  |          2 | Mar├нa         | Ciudad B       |           2 | Producto B      |           75.00 |
+|        3 |          3 | 2024-03-03  |          3 | Pedro          | Ciudad C       |           3 | Producto C      |          100.00 |
++----------+------------+-------------+------------+----------------+----------------+-------------+-----------------+-----------------+
 
 Realizar un inner join entre clientes y órdenes. **/
 select c.*, o.* from clientes as c 
