@@ -18,7 +18,7 @@ use instituto;
 /** 
 Cree la tabla definiendo una clave primaria compuesta (año de inscripción y número de inscripción).
 Nota:Muestra el comando y la salida. **/
-drop table alumno if exists;
+drop table if exists alumno;
 create table alumno (
     inscripcion int auto_increment,
     año_insrp int,
