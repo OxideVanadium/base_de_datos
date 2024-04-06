@@ -58,7 +58,9 @@ Records: 3740  Duplicates: 0  Warnings: 0
 Nota: Muestra el resultado y razona la respueta.
 Con la cláusula DESCRIBE observa cuál es la situación de la tabla clonada, ¿Qué le pasa al índice y a la propiedad AUTO_INCREMENT?
 Nota: Compara el resultado con la tabla MOVIMIENTO.
-MOVIMIENTO
+
+--- La clave primaria se ha copiado como un campo sin indice y sin autoincremento
+
 +---------------+-------------+------+-----+---------+----------------+
 | Field         | Type        | Null | Key | Default | Extra          |
 +---------------+-------------+------+-----+---------+----------------+
@@ -68,7 +70,7 @@ MOVIMIENTO
 | Cantidad      | int         | NO   |     | NULL    |                |
 +---------------+-------------+------+-----+---------+----------------+
 
-MOVIMIENTO_BIS
+
 +---------------+-------------+------+-----+---------+-------+
 | Field         | Type        | Null | Key | Default | Extra |
 +---------------+-------------+------+-----+---------+-------+
@@ -84,6 +86,7 @@ Supongamos que las consultas de rango que se van a hacer en nuestra tabla son fr
 Este es motivo suficiente para que sea la fecha un índice de tabla y así mejorar el tiempo de respuesta de nuestras consultas. 
 En la tabla MOVIMIENTO_BIS creamos un índice para la fecha (IX_FECHA_BIS) y otro índice para el identificador (IX_IDENTIFICADOR).
 Analiza el plan de ejecución de las siguientes consultas y observa la diferencia: 
+
 
 Consulta1
 **/
@@ -111,6 +114,7 @@ Consulta 2
 explain select identificador from MOVIMIENTO_BIS where identificador=3;
 explain select identificador from MOVIMIENTO where identificador=3;
 /**
+
 +----+-------------+----------------+------------+------+---------------+------+---------+------+------+----------+-------------+
 | id | select_type | table          | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
 +----+-------------+----------------+------------+------+---------------+------+---------+------+------+----------+-------------+
@@ -127,6 +131,11 @@ explain select identificador from MOVIMIENTO where identificador=3;
 
 Fíjata en que en la consulta 1 pedimos todos los campos. ¿A través de que indice se busca? ¿Por qué crees que lo hace así? En la consulta 2 solo pedimos el identificador. 
 ¿A través de que índice busca? ¿Por qué crees que lo hace así? Analiza la ejecución.
+
+--- En la tabla sin clave primaria, se recorren todas las filas. En cambio, en la tabla con clave primaria, se accede directamente a la fila con el identificador 
+correspondiente al que indicamos en el filtro indepdientemente del numero de las columnas que hay que mostrar
+
+
 Analiza el plan de ejecución de las siguientes consultas y observa la diferencia:
 Consulta 1:
 **/
@@ -169,9 +178,16 @@ explain SELECT * FROM MOVIMIENTO_BIS WHERE fecha BETWEEN '2012-01-01' and '2012-
 
 Fijate que en la consulta 2 pedimos todos los campos. ¿A través de que índice busca? ¿Por qué crees que lo hace así? En la consulta 1 solo pedimos la fecha. 
 ¿A través de que índice busca? ¿Por qué crees que lo hace así? Analiza la ejecución.
+
+--- En ambas tablas se recorren todas las filas ya que falta el indice del campo 'fecha' sin dependencia del numero de las columnas que se soliciten
+
 Vamos a crear un índice por fecha (IX_FECHA) en la tabla MOVIMIENTO, puesto que no lo tenía, en este caso la tabla ya tenía un indice, la clave primaria.
 Visualiza los indices de las tablas MOVIMIENTO y MOVIMIENTO_BIS.
 Analiza el plan de ejecución de las siguientes consultas y observa la diferencia: 
+
+--- En la tabla con un indice en el campo 'fecha' se reccoren 100 filas en lugar de recorrer todas las filas como en la tabla sin indice, el numero de las columnas solicitadas
+no affecta al numero de filas recorridas
+
 Consulta 1: **/
 
 create index IX_FECHA on MOVIMIENTO(fecha);
