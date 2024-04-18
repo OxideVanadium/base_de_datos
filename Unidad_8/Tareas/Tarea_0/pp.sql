@@ -87,17 +87,43 @@ mysql> select * from Users;
 
 Implementa funciones para realizar cálculos o consultas: 
 Función para calcular el precio total de un conjunto de productos.**/
-
 delimiter $$
-create function total() returns decimal(10, 2) determenistic
+
+create function total() returns float DETERMINISTIC
 begin
-declare suma decimal(10, 2);
-select sum(Price) into suma from Products;
-return suma;
-end $$
+declare c_sum float;
+select sum(Price) as total from Products into c_sum;
+return c_sum;
+end$$
 delimiter ;
 
-
 /**
+mysql> select total();
++---------+
+| total() |
++---------+
+|   47.24 |
++---------+
+1 row in set (0.00 sec)
+
 Función para contar el número de usuarios.
 Nota: Realiza la invocación y la verificación de que ha funcionado correctamente.**/
+delimiter $$
+
+create function user_num() returns int DETERMINISTIC
+begin
+declare c_num int;
+select count(*) as c_num from Users into c_num;
+return c_num;
+end$$
+
+delimiter ;
+
+/**
+mysql> select user_num();
++------------+
+| user_num() |
++------------+
+|          4 |
++------------+
+1 row in set (0.01 sec)
