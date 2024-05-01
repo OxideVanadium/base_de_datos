@@ -103,34 +103,28 @@ mysql> select * from usuarios;
 Crea una función que devuelva el nombre del usuario más joven. **/
 delimiter $$
 
-create function young() returns int DETERMINISTIC
+create function young() returns varchar(50) DETERMINISTIC
 begin
-declare yongest int;
+declare yongest varchar(50);
 select nombre from usuarios 
-where edad=(
-    select min(edad) from usuarios
-)
-limit 1;
-return yongest 
+order by edad asc
+limit 1
 into yongest;
+return yongest;
 end$$
 
 delimiter ;
 
-delimiter $$ 
-
-create function calcular_suma_pagos_cliente(cod_cli int) returns float DETERMINISTIC
-begin
-declare suma_cliente float;
-select sum(total) from pago
-where codigo_cliente=cod_cli
-into suma_cliente;
-return suma_cliente;
-end$$
-
-delimiter ;
 
 /**
+mysql> select young();
++---------+
+| young() |
++---------+
+| a       |
++---------+
+1 row in set (0.00 sec)
+
 Crea un procedimiento almacenado que actualice la edad de un usuario dado su nombre. **/
 delimiter $$
 
@@ -188,58 +182,112 @@ mysql> select us_t();
 Crea un procedimiento almacenado que elimine un usuario dado su email. **/
 delimiter $$
 
-create procedure d_us(in em VARCHAR())
+create procedure d_us(in em VARCHAR(50))
 begin
 delete from usuarios where email=em;
 end$$
 
 delimiter ;
 
-
 /**
+call d_us('a');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from usuarios;
++----+--------+------+--------------------+
+| id | nombre | edad | email              |
++----+--------+------+--------------------+
+|  1 | Juan   |   25 | juan@example.com   |
+|  2 | Mar├нa |   30 | maria@example.com  |
+|  3 | Pedro  |   35 | pedro@example.com  |
+|  4 | Ana    |   28 | ana@example.com    |
+|  5 | Luis   |   40 | luis@example.com   |
+|  6 | Laura  |   22 | laura@example.com  |
+|  7 | Carlos |   33 | carlos@example.com |
+|  8 | Sof├нa |   27 | sofia@example.com  |
+|  9 | Diego  |   29 | diego@example.com  |
+| 10 | Elena  |   31 | elena@example.com  |
++----+--------+------+--------------------+
+10 rows in set (0.00 sec)
+
 Crea una función que devuelva el nombre del usuario más viejo. **/
 delimiter $$
 
-create function old() returns DETERMINISTIC int
+create function oldest() returns varchar(50) DETERMINISTIC
 begin
-declare oldest VARCHAR();
-select nombre from usuario 
-where edad=(
-    select max(edad) from usuarios
-) 
-into oldest limit ;
+declare oldest VARCHAR(50);
+select nombre from usuarios 
+order by edad desc
+limit 1
+into oldest;
+return oldest;
 end$$
 
 delimiter ;
 
 /**
+mysql> select oldest();
++----------+
+| oldest() |
++----------+
+| Luis     |
++----------+
+1 row in set (0.00 sec)
+
+
 Crea un procedimiento almacenado que ordene los usuarios por edad de forma ascendente y muestre el resultado. **/
 delimiter $$
 
-create procedure order()
+create procedure new_order()
 begin
 select * from usuarios
-order by edad asc;
+order by edad;
 end$$
 
 delimiter ;
 
 /**
+mysql> call new_order();
++----+--------+------+--------------------+
+| id | nombre | edad | email              |
++----+--------+------+--------------------+
+|  6 | Laura  |   22 | laura@example.com  |
+|  1 | Juan   |   25 | juan@example.com   |
+|  8 | Sof├нa |   27 | sofia@example.com  |
+|  4 | Ana    |   28 | ana@example.com    |
+|  9 | Diego  |   29 | diego@example.com  |
+|  2 | Mar├нa |   30 | maria@example.com  |
+| 10 | Elena  |   31 | elena@example.com  |
+|  7 | Carlos |   33 | carlos@example.com |
+|  3 | Pedro  |   35 | pedro@example.com  |
+|  5 | Luis   |   40 | luis@example.com   |
++----+--------+------+--------------------+
+10 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+
 Crea una función que devuelva el email del usuario con la edad más alta. **/
 delimiter $$
 
-create function ema() return VARCHAR(50) DETERMINISTIC
+create function ema() returns VARCHAR(50) DETERMINISTIC
 begin
 declare n_mail VARCHAR(50);
 select email from usuarios
-where edad=(
-    select max(edad) from usuarios
-)
+order by edad desc
 limit 1 into n_mail;
+return n_mail;
 end $$
 
 delimiter ;
 
 /**
+mysql> select ema();
++------------------+
+| ema()            |
++------------------+
+| luis@example.com |
++------------------+
+1 row in set (0.00 sec)
 
 **/
