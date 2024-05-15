@@ -123,25 +123,90 @@ call my_loop_3(2, 2000, 0.5);
 Inserta cuatro filas en la tabla empleados con nombres aleatorios generados usando la función SUBSTRING_INDEX(UUID(), '-', -1). **/
 DELIMITER //
 
-CREATE PROCEDURE my_loop_4(IN iterations INT)
+CREATE PROCEDURE my_loop_4(IN iterations INT, in n_name varchar(100), in salary_base decimal(10, 2), in factor decimal(2,2))
 BEGIN
     DECLARE counter INT DEFAULT 0;
 
     WHILE counter < iterations DO
         -- Coloca aquí el código que deseas ejecutar en cada iteración del bucle
         -- Por ejemplo, puedes imprimir el valor del contador
-
+        insert into empleados(nombre, salario)
+        values(concat(n_name, SUBSTRING_INDEX(UUID(), '-', 1)), salary_base * (factor + rand() * (1-factor)));
         SET counter = counter + 1;
     END WHILE;
 END//
 
 DELIMITER ;
 
+call my_loop_4(4, 'user', 2000, 0.7);
+
 /**
++----+-----------------------+---------+
+| id | nombre                | salario |
++----+-----------------------+---------+
+|  1 | Juan                  | 3000.00 |
+|  2 | María                 | 3500.00 |
+|  3 | Pedro                 | 3200.00 |
+|  4 | pp0.5147575796719246  | 1738.33 |
+|  5 | pp0.14736481583431812 | 1521.84 |
+|  6 | pp0.16711356040752826 | 1270.04 |
+|  7 | pp0.8488745818369785  | 1434.24 |
+|  8 | pp0.6245952878376425  | 1820.25 |
+| 14 | user080027d9a3b3      | 1208.31 |
+| 15 | user080027d9a3b3      | 1340.49 |
+| 16 | user080027d9a3b3      | 1127.54 |
+| 17 | userec651747          | 1826.84 |
+| 18 | userec6838f8          | 1751.53 |
+| 19 | userec6b0018          | 1877.10 |
+| 20 | userec6d0e08          | 1530.93 |
++----+-----------------------+---------+
 
+Inserta seis filas en la tabla empleados con nombres aleatorios generados usando la función RAND() y una semilla diferente. **/
+DELIMITER //
 
-Inserta seis filas en la tabla empleados con nombres aleatorios generados usando la función RAND() y una semilla diferente.
+CREATE PROCEDURE my_loop_5(IN iterations INT, in n_name varchar(100), in salary_base decimal(10, 2), in factor decimal(2,2))
+BEGIN
+    DECLARE counter INT DEFAULT 0;
+    declare r_name varchar(100);
+    declare nums int;
 
+    set nums=(select count(*) from empleados);
+
+    WHILE counter < iterations DO
+        set r_name=(select nombre from empleados where id=floor((RAND() * nums) + 2));
+        insert into empleados(nombre, salario)
+        values(concat(n_name, r_name), salary_base * (factor + rand() * (1-factor)));
+        SET counter = counter + 1;
+    END WHILE;
+END//
+
+DELIMITER ;
+
+call my_loop_5(3, 'bebebe', 1500, 0.9);
+
+/**
++----+----------------------------+---------+
+| id | nombre                     | salario |
++----+----------------------------+---------+
+|  1 | Juan                       | 3000.00 |
+|  2 | María                      | 3500.00 |
+|  3 | Pedro                      | 3200.00 |
+|  4 | pp0.5147575796719246       | 1738.33 |
+|  5 | pp0.14736481583431812      | 1521.84 |
+|  6 | pp0.16711356040752826      | 1270.04 |
+|  7 | pp0.8488745818369785       | 1434.24 |
+|  8 | pp0.6245952878376425       | 1820.25 |
+| 14 | user080027d9a3b3           | 1208.31 |
+| 15 | user080027d9a3b3           | 1340.49 |
+| 16 | user080027d9a3b3           | 1127.54 |
+| 17 | userec651747               | 1826.84 |
+| 18 | userec6838f8               | 1751.53 |
+| 19 | userec6b0018               | 1877.10 |
+| 20 | userec6d0e08               | 1530.93 |
+| 43 | NULL                       | 1439.06 |
+| 44 | bebebepp0.6245952878376425 | 1369.99 |
+| 45 | bebebeuser080027d9a3b3     | 1352.20 |
++----+----------------------------+---------+
 
 Crea cada uno de los procedimientos, maximixando el número de parámetros de entrada necesarios, por ejemplo: _nombre, salario, e id.
 
