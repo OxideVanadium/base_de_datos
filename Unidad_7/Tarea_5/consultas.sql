@@ -475,3 +475,16 @@ Query OK, 0 rows affected (0.01 sec)
 
 mysql> drop view listado_pedidos_clientes;
 Query OK, 0 rows affected (0.00 sec)
+
+
+create table pp(
+    name varchar(10));
+
+
+insert into pp(name)
+values('kk'),
+('kk'),
+('kk'),
+('kk');
+
+alter table pp add column id int auto_increment primary key;

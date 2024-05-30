@@ -48,3 +48,45 @@
 | precio_unidad   | decimal(15,2) | NO   |     | NULL    |       |
 | numero_linea    | smallint      | NO   |     | NULL    |       |
 +-----------------+---------------+------+-----+---------+-------+
+
+
++--------------------------------+
+| nombre_cliente                 |
++--------------------------------+
+| Agrojardin                     |
+| Aloha                          |
+| Americh Golf Management SL     |
+| Beragua                        |
+| Campohermoso    +               |
+| Camunas Jardines S.L.     +     |
+| Club Golf Puerta del hierro    |
+| DaraDistribuciones      +       |
+| Dardena S.A.               +    |
+| El Jardin Viviente S.L      +   |
+| El Prat                      +  |
+| Flores Marivi                 + |
+| Flores S.L.                  +  |
+| Flowers, S.A               +    |
+| france telecom                 |
+| Fuenla City                    |
+| Gardening Associates           |
+| Gerudo Valley                  |
+| GoldFish Garden            +    |
+| Golf S.A.                 +     |
+| Jardin de Flores             +  |
+| Jardiner├нas Mat├нas SL     +   |
+| Jardineria Sara               + |
+| Jardines y Mansiones Cactus SL+ |
+| Lasas S.A.                     |
+| Lasas S.A.                     |
+| Madrile├▒a de riegos           |
+| Mus├йe du Louvre               |
+| Naturagua                    +  |
+| Naturajardin                 +  |
+| Sotogrande                     |
+| Tendo Garden                   |
+| The Magic Garden               |
+| Top Campo                      |
+| Tutifruti S.A                  |
+| Vivero Humanes                 |
++--------------------------------+
