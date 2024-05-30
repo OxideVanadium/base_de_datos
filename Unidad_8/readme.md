@@ -133,9 +133,12 @@ delimiter ;
 
 FLOOR(RAND() * (max - min + 1)) + min
 
-SUBSTRING_INDEX(UUID(), '-', -1)
+SUBSTRING_INDEX(UUID(), '-', 1)
 
 date_add(DATE, interval DAY/MONTH/YEAR)
 
 datediff(DATE, DATE) -> days
 
+substring(STRING, INDEX)
+
+replace(STRING, SUBSTRING, SUBSTRING)
